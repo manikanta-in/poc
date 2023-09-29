@@ -2,9 +2,10 @@ import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import { Checkbox, Input } from '@pega/cosmos-react-core';
 import ArrowIcon from '../Icons/ArrowIcon/ArrowIcon';
+import CloseIcon from '../Icons/CloseIcon';
 
 
-export const Step2 = ({ onChange, onArrowClick }) => {
+export const Step2 = ({ onChange, onArrowClick, onCloseClick}) => {
   const [value, setValue] = useState(null);
   const [check, setCheck] = useState(false);
 
@@ -43,7 +44,7 @@ export const Step2 = ({ onChange, onArrowClick }) => {
         <Grid item xs={1}>
           <Checkbox onClick={onCheckChange} style={{marginTop:'10px'}}></Checkbox>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           <Input
             autoComplete='off'
             onChange={onChangeValue}
@@ -52,7 +53,11 @@ export const Step2 = ({ onChange, onArrowClick }) => {
           />
         </Grid>
         <Grid item xs={2}>
-          <ArrowIcon style={{ marginLeft: '10px', padding:'5px', borderRadius:'5px', backgroundColor:"#dfdfdf", width:'30px', height:'30px' }} onClick={onClickArrow} />
+          <ArrowIcon style={{ marginLeft: '10px', padding:'5px', borderRadius:'5px', backgroundColor:"#dfdfdf", width:'30px', height:'30px'}} onClick={onClickArrow} />
+          </Grid>
+
+          <Grid item xs={2}>
+         <CloseIcon />
         </Grid>
       </Grid>
     </>
