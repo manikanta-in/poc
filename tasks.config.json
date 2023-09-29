@@ -1,0 +1,21 @@
+{
+  "components-directory-path": "src/components",
+  "server-config": {
+    "server": "https://pegaplmpoc.healthfirst.org/prweb",
+    "user": "vmullapati@healthfirst.org",
+    "password": "rules",
+    "rulesetName": "ATLAS",
+    "rulesetVersion": "01-01-01",
+    "sourceOfComponents": "Server",
+    "devBuild": false,
+    "clientId": "12782580023870311851",
+    "clientSecret": "01A30B362A42D83EC6556A26AC76E370"
+  },
+  "component": {
+    "library": "generic",
+    "type": "",
+    "subtype": "",
+    "description": "",
+    "icon": ""
+  }
+}

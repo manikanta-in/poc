@@ -1,0 +1,27 @@
+{
+  "name": "Hf_generic_AdvancedSearchTabs",
+  "label": "Advanced Search Tabs",
+  "description": "Tabbed view for advanced search",
+  "organization": "Hf",
+  "version": "01.01.01",
+  "library": "generic",
+  "allowedApplications": [],
+  "componentKey": "Hf_generic_AdvancedSearchTabs",
+  "type": "Widget",
+  "subtype": "PAGE",
+  "icon": "OneColumnPage.svg",
+  "properties": [
+      {
+        "label": "Conditions",
+        "format": "GROUP",
+        "properties": [
+          {
+            "name": "visibility",
+            "label": "Visibility",
+            "format": "VISIBILITY"
+          }
+        ]
+      }
+  ],
+  "defaultConfig": {}
+}

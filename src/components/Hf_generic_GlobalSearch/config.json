@@ -1,0 +1,15 @@
+{
+  "name": "Hf_generic_GlobalSearch",
+  "label": "Atlas Global Search",
+  "description": "Atlas Global Search landing page",
+  "organization": "Hf",
+  "version": "01.01.01",
+  "library": "generic",
+  "allowedApplications": [],
+  "componentKey": "Hf_generic_GlobalSearch",
+  "type": "Widget",
+  "subtype": "PAGE",
+  "icon": "OneColumnPage.svg",
+  "properties": [],
+  "defaultConfig": {}
+}
