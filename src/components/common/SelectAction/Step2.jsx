@@ -32,12 +32,19 @@ export const Step2 = ({ onChange, onArrowClick }) => {
   return (
     <>
       <Grid container>
-        <Grid item xs={2}>
-          <Checkbox onClick={onCheckChange}></Checkbox>
+        <Grid item xs={12}>
+        <label style={{color:'blue', fontWeight:'600'}}>Enter an Inventory Request ID</label>
         </Grid>
-        <Grid item xs={6}>
+
+        <Grid item xs={12}>
+        <div style={{width:'40px', height:'3px',borderRadius:'20px', backgroundColor:'blue', marginTop:'8px', marginBottom:'10px'}}></div>
+        </Grid>
+     
+        <Grid item xs={1}>
+          <Checkbox onClick={onCheckChange} style={{marginTop:'10px'}}></Checkbox>
+        </Grid>
+        <Grid item xs={8}>
           <Input
-            label='IR ID'
             autoComplete='off'
             onChange={onChangeValue}
             placeholder='Enter IR ID'
@@ -45,7 +52,7 @@ export const Step2 = ({ onChange, onArrowClick }) => {
           />
         </Grid>
         <Grid item xs={2}>
-          <ArrowIcon style={{ marginTop: '20px', marginLeft: '10px' }} onClick={onClickArrow} />
+          <ArrowIcon style={{ marginLeft: '10px', padding:'5px', borderRadius:'5px', backgroundColor:"#dfdfdf", width:'30px', height:'30px' }} onClick={onClickArrow} />
         </Grid>
       </Grid>
     </>
