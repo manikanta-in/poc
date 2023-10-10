@@ -65,6 +65,7 @@ export const NetworkAccess = styled.div`
   height: 27px;
   border-radius: 25px;
   padding: 10px;
+  text-align: center;
   .status-text {
     text-align: center;
     font-size: 1rem;

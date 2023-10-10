@@ -20,6 +20,7 @@ export default function FacilityTab(props) {
   const { setSearchData, onClose, setFetchResults, setTypeOfSearch } = props;
   const [fieldsRequired, setFieldsRequired] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [triggerRender, setTriggerRender] = useState(false);
 
   const [submitDisable, setsubmitDisable] = useState(true);
   const backButtonText = '< Back to Search Screen';
@@ -77,23 +78,6 @@ export default function FacilityTab(props) {
     CheckSubmitEnabled();
   }, [formData]);
 
-  const checkString = event => {
-    // let valueLength = event.target.value.length === 0 ? true : false;
-    // if (valueLength) {
-    //   emptyErrMsg(event.target.name);
-    //   return false;
-    // } else {
-    //   if (!event.target.value.match(/^[a-zA-Z]+$/)) {
-    //     errors[`${event.target.name}`] = 'Please enter only letters';
-    //     setErrors(errors);
-    //     return true;
-    //   } else {
-    //     emptyErrMsg(event.target.name);
-    //     return false;
-    //   }
-    // }
-  };
-
   const emptyErrMsg = name => {
     errors[`${name}`] = '';
     setErrors(errors);
@@ -103,41 +87,59 @@ export default function FacilityTab(props) {
     let formIsValid = true;
 
     if (event.target.name === 'TaxId') {
-      if (!event.target.value.match(/^[0-9]+$/) && event.target.value?.length !== 0) {
+      if (!event.target.value.match(/^[0-9]{9}$/) && event.target.value?.length !== 0) {
         errors[`${event.target.name}`] = 'Enter valid 9 digit TAX ID';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
+
         return true;
       } else {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       }
     } else if (event.target.name === 'Phone') {
-      var regExp = new RegExp('^\\d+$');
-      if (!regExp.test(event.target.value) && event.target.value?.length !== 0) {
-        errors[`${event.target.name}`] = 'Enter valid 10 digit phone number';
+      //var regExp = new RegExp('^\\d+$');
+      //if (!regExp.test(event.target.value)
+      if (!event.target.value.match(/^\d{3}-\d{3}-\d{4}$/) && event.target.value?.length !== 0) {
+        errors[`${event.target.name}`] =
+          'Please enter a valid phone number in the format xxx-xxx-xxxx';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
+
         return true;
       } else {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       }
     } else if (event.target.name === 'Zip') {
       if (checkZip(event.target.value) || event.target.value?.length === 0) {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       } else {
         errors[`${event.target.name}`] = 'Enter valid 5 digit Zip code';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
+
         return true;
       }
     } else if (event.target.name === 'HCFID') {
       var regExp = /^F-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/;
       if (regExp.test(event.target.value) || event.target.value?.length === 0) {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       } else {
         errors[`${event.target.name}`] = 'Enter a valid HCF ID';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
+
         return true;
       }
     }
@@ -159,7 +161,7 @@ export default function FacilityTab(props) {
   }
 
   const handleChange = e => {
-    handleValidation(e);
+    //handleValidation(e);
 
     setFormData(allValues => {
       if (e.target.name === 'HCFID') {
@@ -181,16 +183,41 @@ export default function FacilityTab(props) {
     if (
       stateVal['TypeofFacility'].length > 0 ||
       stateVal['FacilityName'].length > 0 ||
-      stateVal['HCFID'].length > 0 ||
-      stateVal['TaxId'].length > 0 ||
-      stateVal['Phone'].length > 0 ||
+      //stateVal['HCFID'].length > 0 ||
+      //stateVal['TaxId'].length > 0 ||
+      //stateVal['Phone'].length > 0 ||
       stateVal['Street'].length > 0 ||
       stateVal['City'].length > 0 ||
       stateVal['State'].length > 0 ||
-      stateVal['Zip'].length > 0 ||
+      //stateVal['Zip'].length > 0 ||
       stateVal['County'].length > 0
     ) {
       setsubmitDisable(false);
+    } else if (stateVal['HCFID'].length > 0) {
+      var regExp = /^F-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/;
+      if (regExp.test(stateVal['HCFID'])) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['Zip'].length > 0) {
+      if (checkZip(stateVal['Zip'])) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['TaxId'].length > 0) {
+      if (stateVal['TaxId'].match(/^[0-9]{9}$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['Phone'].length > 0) {
+      if (stateVal['Phone'].match(/^\d{3}-\d{3}-\d{4}$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
     } else {
       setsubmitDisable(true);
     }
@@ -407,63 +434,70 @@ export default function FacilityTab(props) {
             name='FacilityName'
             label='Facility Name'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.FacilityName}
-            //status={errors?.FacilityName ? 'error' : 'pending'}
+            info={errors?.FacilityName}
+            status={errors?.FacilityName ? 'error' : 'pending'}
             value={formData.FacilityName}
           />
           <Input
             name='HCFID'
             label='HCF ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.HCFID}
-            //info={errors?.HCFID}
-            //status={errors?.HCFID ? 'error' : 'pending'}
+            info={errors?.HCFID}
+            status={errors?.HCFID ? 'error' : 'pending'}
           />
           <Input
             name='TaxId'
             label='Tax ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.TaxId}
             maxLength='9'
-            //info={errors?.TaxId}
-            //status={errors?.TaxId ? 'error' : 'pending'}
+            info={errors?.TaxId}
+            status={errors?.TaxId ? 'error' : 'pending'}
           />
           <Input name='Vendor' label='Legacy Vendor ID' disabled={true} />
           <Input
             name='Phone'
             label='Phone #'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.Phone}
-            maxLength='10'
-            // info={errors?.Phone}
-            //status={errors?.Phone ? 'error' : 'pending'}
+            maxLength='12'
+            info={errors?.Phone}
+            status={errors?.Phone ? 'error' : 'pending'}
           />
           <Input
             name='Street'
             label='Street'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.Street}
-            //status={errors?.Street ? 'error' : 'pending'}
+            info={errors?.Street}
+            status={errors?.Street ? 'error' : 'pending'}
             value={formData.Street}
           />
           <Input
             name='City'
             label='City'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.City}
-            //status={errors?.City ? 'error' : 'pending'}
+            info={errors?.City}
+            status={errors?.City ? 'error' : 'pending'}
             value={formData.City}
           />
           <Input
             label='State'
             name='State'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.State}
           />
@@ -471,19 +505,21 @@ export default function FacilityTab(props) {
             name='Zip'
             label='Zip Code'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.Zip}
             maxLength='5'
-            // info={errors?.Zip}
-            //status={errors?.Zip ? 'error' : 'pending'}
+            info={errors?.Zip}
+            status={errors?.Zip ? 'error' : 'pending'}
           />
           <Input
             name='County'
             label='County'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.County}
-            // status={errors?.County ? 'error' : 'pending'}
+            info={errors?.County}
+            status={errors?.County ? 'error' : 'pending'}
             value={formData.County}
             disabled={true}
           />

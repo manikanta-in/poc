@@ -34,7 +34,8 @@ const TableStyleContaner = styled(props => <TableContainer {...props} />)(({}) =
     borderCollapse: 'separate !important',
     borderSpacing: '0px 7px !important',
     marginTop: '30px',
-    width: '154%'
+    width: '154%',
+    tableLayout: 'fixed'
   }
 }));
 
@@ -124,41 +125,44 @@ const ProfessionalRelationShipsList = props => {
     <ThemeProvider theme={theme}>
       <div style={{ marginTop: 20 }}>
         <TableStyleContaner component={Paper} style={{ border: 'none', boxShadow: 'none' }}>
-          <div ref={scrollToTop} style={{ height: '460px', overflow: 'auto', marginTop: '-20px' }}>
+          <div ref={scrollToTop} className='professional-relationships'>
             <Table aria-label='customized table' stickyHeader>
               <TableHead>
                 <TableRow>
-                  <StyledTableCell align='center'>Professional&nbsp;ID</StyledTableCell>
-                  <StyledTableCell align='center'>Name</StyledTableCell>
-                  <StyledTableCell align='center'>Status</StyledTableCell>
-                  {/* <StyledTableCell align='center'>HCO&nbsp;Name</StyledTableCell> */}
-                  <StyledTableCell align='center'>Specialty</StyledTableCell>
-                  <StyledTableCell align='center'>Tax&nbsp;ID</StyledTableCell>
-                  <StyledTableCell align='center'>Phone&nbsp;#</StyledTableCell>
-                  <StyledTableCell align='center'>Medicare&nbsp;#</StyledTableCell>
-                  <StyledTableCell align='center'>Medicaid&nbsp;#</StyledTableCell>
-                  <StyledTableCell align='center'>NPI</StyledTableCell>
-                  {/* <StyledTableCell align='center'>Vendor&nbsp;ID</StyledTableCell> */}
-                  <StyledTableCell align='center'>Address</StyledTableCell>
+                  <StyledTableCell align='left'>Professional&nbsp;ID</StyledTableCell>
+                  <StyledTableCell align='left'>Name</StyledTableCell>
+                  <StyledTableCell align='left' sx={{ width: 180 }}>
+                    Status
+                  </StyledTableCell>
+                  {/* <StyledTableCell align='left'>HCO&nbsp;Name</StyledTableCell> */}
+                  <StyledTableCell align='left'>Specialty</StyledTableCell>
+                  <StyledTableCell align='left'>Tax&nbsp;ID</StyledTableCell>
+                  <StyledTableCell align='left'>Phone&nbsp;#</StyledTableCell>
+                  <StyledTableCell align='left'>Medicare&nbsp;#</StyledTableCell>
+                  <StyledTableCell align='left'>Medicaid&nbsp;#</StyledTableCell>
+                  <StyledTableCell align='left'>NPI</StyledTableCell>
+                  {/* <StyledTableCell align='left'>Vendor&nbsp;ID</StyledTableCell> */}
+                  <StyledTableCell align='left'>Address</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {ProfessionalRecords &&
                   ProfessionalRecords?.Records?.map((row, index) => (
                     <StyledTableRow key={index}>
-                      <StyledTableCell component='th' align='center'>
+                      <StyledTableCell component='th' align='left'>
                         <LinkStyled onClick={() => console.log('onclick')}>
                           {row.ProfessionalID ? row.ProfessionalID : '--'}
                         </LinkStyled>
                       </StyledTableCell>
-                      <StyledTableCell align='center'> {FullName(row)} </StyledTableCell>
-                      <StyledTableCell align='center' style={{ width: '7%' }}>
+                      <StyledTableCell align='left'> {FullName(row)} </StyledTableCell>
+                      <StyledTableCell align='left'>
                         <div
                           style={{
                             background:
                               row.Status === 'In-Network'
                                 ? '#529535'
-                                : row.Status === 'Out-of-Network' || row.Status === 'Out-Network'
+                                : row?.Status?.toLowerCase() === 'out-of-network' ||
+                                  row.Status === 'Out-Network'
                                 ? '#EA4040'
                                 : row.Status === 'Inactive' || row.Status === 'Pending'
                                 ? '#F7911D'
@@ -169,19 +173,19 @@ const ProfessionalRelationShipsList = props => {
                             textAlign: 'center',
                             justifyContent: 'center',
                             fontSize: '0.875rem',
-                            width: '130%'
+                            width: '100%'
                           }}
                         >
                           {row.Status ? row.Status : '--'}
                         </div>
                       </StyledTableCell>
-                      {/* <StyledTableCell align='center'></StyledTableCell> */}
-                      <StyledTableCell align='center' style={{ width: '10%' }}>
+                      {/* <StyledTableCell align='left'></StyledTableCell> */}
+                      <StyledTableCell align='left' style={{ width: '10%' }}>
                         <TableWrapper
                           Medicaid={row.SpecialtyList[0]?.split(',')?.length > 2}
                           style={{
                             height: row.SpecialtyList[0]?.split(',')?.length > 2 ? '50px' : '',
-                            width: row.SpecialtyList[0]?.split(',')?.length > 2 ? '100%' : ''
+                            width: row.SpecialtyList[0]?.split(',')?.length > 2 ? '102%' : ''
                           }}
                         >
                           {row.SpecialtyList === undefined ||
@@ -192,21 +196,17 @@ const ProfessionalRelationShipsList = props => {
                             : `${row.SpecialtyList}`}
                         </TableWrapper>
                       </StyledTableCell>
-                      <StyledTableCell align='center'>
-                        {row.TaxID ? row.TaxID : '--'}
-                      </StyledTableCell>
-                      <StyledTableCell align='center' style={{ width: '13%' }}>
-                        {row.Phone ? row.Phone : '--'}
-                      </StyledTableCell>
-                      <StyledTableCell align='center'>
+                      <StyledTableCell align='left'>{row.TaxID ? row.TaxID : '--'}</StyledTableCell>
+                      <StyledTableCell align='left'>{row.Phone ? row.Phone : '--'}</StyledTableCell>
+                      <StyledTableCell align='left'>
                         {row.Medicare ? row.Medicare : '--'}
                       </StyledTableCell>
-                      <StyledTableCell align='center' style={{ width: '10%' }}>
+                      <StyledTableCell align='left' style={{ width: '10%' }}>
                         <TableWrapper
                           Medicaid={row.MedicaidList?.length > 2}
                           style={{
                             height: row.MedicaidList?.length > 2 ? '50px' : '',
-                            width: row.MedicaidList?.length > 2 ? '100%' : ''
+                            width: row.MedicaidList?.length > 2 ? '70%' : ''
                           }}
                         >
                           {row.MedicaidList === undefined ||
@@ -214,25 +214,25 @@ const ProfessionalRelationShipsList = props => {
                           row.MedicaidList === null ||
                           row.MedicaidList?.length === 0
                             ? '--'
-                            : row.MedicaidList.join(',\n')}
+                            : row.MedicaidList.join('\n')}
                         </TableWrapper>
                       </StyledTableCell>
-                      <StyledTableCell align='center'>{row.NPI ? row.NPI : '--'}</StyledTableCell>
-                      {/* <StyledTableCell align='center'></StyledTableCell> */}
-                      <StyledTableCell align='center'>{constructAddress(row)}</StyledTableCell>
+                      <StyledTableCell align='left'>{row.NPI ? row.NPI : '--'}</StyledTableCell>
+                      {/* <StyledTableCell align='left'></StyledTableCell> */}
+                      <StyledTableCell align='left'>{constructAddress(row)}</StyledTableCell>
                     </StyledTableRow>
                   ))}
                 {resultsFetched === 'loading' && <></>}
               </TableBody>
             </Table>
           </div>
+          {(!ProfessionalRecords ||
+            (ProfessionalRecords && ProfessionalRecords?.Records?.length === 0)) &&
+            resultsFetched === 'fetched' && <EmptyState style={{ marginTop: '-205px' }} />}
         </TableStyleContaner>
-        {(!ProfessionalRecords ||
-          (ProfessionalRecords && ProfessionalRecords?.Records?.length === 0)) &&
-          resultsFetched === 'fetched' && <EmptyState style={{ marginTop: '-205px' }} />}
 
         {ProfessionalRecords && ProfessionalRecords?.Records?.length > 0 && (
-          <PaginationStyle style={{ marginTop: '30px' }}>
+          <PaginationStyle>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>

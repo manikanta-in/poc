@@ -34,7 +34,14 @@ export default function HfGenericAdvancedSearchTabs(props) {
 
   return (
     <StyledHfGenericAdvancedSearchTabsWrapper>
-      <Tabs tabs={tabs} type='horizontal' onTabClick={handleTabChange} currentTabId={panelShown} />
+      <div className='SearchTabs'>
+        <Tabs
+          tabs={tabs}
+          type='horizontal'
+          onTabClick={handleTabChange}
+          currentTabId={panelShown}
+        />
+      </div>
 
       <TabPanel>{renderTab()}</TabPanel>
     </StyledHfGenericAdvancedSearchTabsWrapper>

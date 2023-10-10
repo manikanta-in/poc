@@ -24,14 +24,19 @@ const ContactCardInfo = props => {
         <div className='line' style={{ marginLeft: 0 }}></div>
 
         <TableWrapper
-          style={{ height: 312, width: '100%', margin: '0 0 0 10px', overflowY: 'auto' }}
+          style={{
+            height: contactData?.length > 4 ? 312 : '',
+            width: '100%',
+            margin: '0 0 0 10px',
+            overflowY: 'auto'
+          }}
         >
           <TableHead>
             <TableHeadText>Name</TableHeadText>
             <TableHeadText>Role</TableHeadText>
             <TableHeadText>Email</TableHeadText>
-            <TableHeadText>Phone</TableHeadText>
-            <TableHeadText>Fax</TableHeadText>
+            <TableHeadText>Phone #</TableHeadText>
+            <TableHeadText>Fax #</TableHeadText>
           </TableHead>
           {contactData?.map((item, index) => (
             <TableRows key={index}>

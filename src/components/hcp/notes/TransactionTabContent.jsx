@@ -103,7 +103,7 @@ const TransactionsTabContent = props => {
         </TableStyleContaner>
 
         {isLoaded && (
-          <PaginationStyle style={{ marginTop: '30px' }}>
+          <PaginationStyle>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>

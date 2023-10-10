@@ -7,8 +7,13 @@ import OrgCard from '../../common/orgCard/orgCard.jsx';
 import { Progress, Image } from '@pega/cosmos-react-core';
 
 import { Section, Detail, Contract, ProviderWrapper, DisableContract } from './styles.style';
-import { NetworkAccess, Container, StyledTableRow } from '../../commonStyles/commonstyle.style';
-
+import {
+  NetworkAccess,
+  Container,
+  StyledTableRow,
+  PaginationStyle
+} from '../../commonStyles/commonstyle.style';
+import Pagination from '@mui/material/Pagination';
 import OrgImg from '../../images/organization.png';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -23,6 +28,15 @@ import AmendLogo from '../../images/todo-solid.svg';
 import DisabledLogo from '../../images/todo-disabled.svg';
 import { changeDateFormate } from '../../shared/utils.js';
 import ErrorPage from '../../common/Error/ErrorPage.jsx';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    info: {
+      main: '#003863'
+    }
+  }
+});
 
 const OrganizationDetails = props => {
   const dataPageName = 'D_HCOOrgDetails';
@@ -32,7 +46,10 @@ const OrganizationDetails = props => {
     invalidateCache: true
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
   const [resultsFetched, setResultsFetched] = useState(false);
+
   const [orgData, setOrgData] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [enabledHCOList, setEnabledHCOList] = useState([]);
@@ -151,7 +168,8 @@ const OrganizationDetails = props => {
       opacity: 0.6,
       marginBottom: '4px'
     },
-    fontFamily: 'Open Sans 500'
+    fontFamily: 'Museo Sans, Open Sans',
+    fontWeight: 500
   }));
 
   const TableStyleContaner = styled(props => <TableContainer {...props} />)(({}) => ({
@@ -183,6 +201,18 @@ const OrganizationDetails = props => {
   const changeMenu = selectedMenuIndex => {
     props.handleTabChange(selectedMenuIndex);
   };
+
+  const orgRelationshipData = orgData?.OrganizationRelationship;
+  const totalPages = Math.ceil(orgData?.OrganizationRelationship?.length / itemsPerPage);
+
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const relationshipsToDisplay = orgRelationshipData?.slice(startIndex, endIndex);
 
   const createCase = () => {
     setLoading(true);
@@ -365,11 +395,7 @@ const OrganizationDetails = props => {
                                                   (providers, index1) => (
                                                     <p>
                                                       {providers}
-                                                      {orgData?.Details?.[tableValues[index]]
-                                                        ?.length ===
-                                                      index1 + 1
-                                                        ? ''
-                                                        : ','}
+                                                      <br />
                                                     </p>
                                                   )
                                                 )
@@ -538,47 +564,47 @@ const OrganizationDetails = props => {
                                 <StyledTableCell className='head' align='left'>
                                   Organization ID
                                 </StyledTableCell>
-                                <StyledTableCell className='head' align='center'>
+                                <StyledTableCell className='head' align='left'>
                                   Child HCO Name
                                 </StyledTableCell>
-                                <StyledTableCell className='head' align='center'>
+                                <StyledTableCell className='head' align='left'>
                                   # HCPs
                                 </StyledTableCell>
-                                <StyledTableCell className='head' align='center'>
+                                <StyledTableCell className='head' align='left'>
                                   # PCPs
                                 </StyledTableCell>
-                                <StyledTableCell className='head' align='center'>
+                                <StyledTableCell className='head' align='left'>
                                   # Specialties
                                 </StyledTableCell>
-                                <StyledTableCell className='head' align='center'>
+                                <StyledTableCell className='head' align='left'>
                                   # HCFs
                                 </StyledTableCell>
-                                <StyledTableCell className='head' align='center'>
+                                <StyledTableCell className='head' align='left'>
                                   Tax ID
                                 </StyledTableCell>
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {orgData?.OrganizationRelationship?.map(row => (
+                              {relationshipsToDisplay?.map(row => (
                                 <StyledTableRow key={row.Company}>
                                   <StyledTableCell component='th'>
                                     {row.OrganizationID != '' ? row.OrganizationID : '--'}
                                   </StyledTableCell>
-                                  <StyledTableCell align='center'>
+                                  <StyledTableCell align='left'>
                                     {row.ChildHCOName != '' ? row.ChildHCOName : '--'}
                                   </StyledTableCell>
                                   <StyledTableCell
                                     className='link'
-                                    align='center'
+                                    align='left'
                                     onClick={() => changeMenu('2')}
                                   >
                                     {row.HCPs != '' || row.HCPs === 0 ? row.HCPs : '--'}
                                   </StyledTableCell>
-                                  <StyledTableCell align='center' onClick={() => changeMenu('2')}>
+                                  <StyledTableCell align='left' onClick={() => changeMenu('2')}>
                                     {/* {row.PCPs != '' || row.PCPs === 0 ? row.PCPs : '--'} commenting out as per ALM-18494, for now we are just showing "--"*/}
                                     --
                                   </StyledTableCell>
-                                  <StyledTableCell align='center' onClick={() => changeMenu('2')}>
+                                  <StyledTableCell align='left' onClick={() => changeMenu('2')}>
                                     {/* {row.Specialties != '' || row.Specialties === 0
                                       ? row.Specialties
                                       : '--'}
@@ -587,18 +613,37 @@ const OrganizationDetails = props => {
                                   </StyledTableCell>
                                   <StyledTableCell
                                     className='link'
-                                    align='center'
+                                    align='left'
                                     onClick={() => changeMenu('2')}
                                   >
                                     {row.HCFs != '' || row.HCFs === 0 ? row.HCFs : '--'}
                                   </StyledTableCell>
-                                  <StyledTableCell align='center'>
+                                  <StyledTableCell align='left'>
                                     {row.TaxID != '' ? row.TaxID : '--'}
                                   </StyledTableCell>
                                 </StyledTableRow>
                               ))}
                             </TableBody>
                           </Table>
+                          {orgData?.OrganizationRelationship?.length > 0 && (
+                            <ThemeProvider theme={theme}>
+                              <PaginationStyle
+                                style={{ justifyContent: 'center', marginTop: '12px' }}
+                              >
+                                <div className='nav'>
+                                  <Pagination
+                                    sx={{ button: { color: '#ffffff' } }}
+                                    color='info'
+                                    hideNextButton
+                                    hidePrevButton
+                                    count={totalPages}
+                                    page={currentPage}
+                                    onChange={handlePageChange}
+                                  />
+                                </div>
+                              </PaginationStyle>
+                            </ThemeProvider>
+                          )}
                         </div>
                       </TableStyleContaner>
                     </Grid>

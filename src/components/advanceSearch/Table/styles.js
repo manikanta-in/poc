@@ -92,7 +92,7 @@ const StyledTable = styled.div(() => {
     }
 
     .table_height {
-      height: 70vh;
+      height: 73vh;
       overflow: auto;
       width: 100%;
     }
@@ -102,7 +102,7 @@ const StyledTable = styled.div(() => {
       .table_height {
         height: 60vh;
         overflow: auto;
-        width: 98%;
+        width: 100%;
       }
     }
     /* 1132px = 90% */
@@ -110,13 +110,13 @@ const StyledTable = styled.div(() => {
       .table_height {
         height: 60vh;
         overflow: auto;
-        width: 99%;
+        width: 100%;
       }
     }
     /* 80% */
     @media screen and (min-width: 1380px) and (max-width: 1490px) {
       .table_height {
-        height: 70vh;
+        height: 73vh;
         overflow: auto;
         width: 100%;
       }
@@ -124,7 +124,7 @@ const StyledTable = styled.div(() => {
     /*90%*/
     @media screen and (min-width: 1491px) and (max-width: 1690px) {
       .table_height {
-        height: 70vh;
+        height: 73vh;
         overflow: auto;
         width: 100%;
       }
@@ -132,7 +132,7 @@ const StyledTable = styled.div(() => {
     /* 1491px = 75% */
     @media screen and (min-width: 1691px) and (max-width: 1890px) {
       .table_height {
-        height: 70vh;
+        height: 73vh;
         overflow: auto;
         width: 100%;
       }

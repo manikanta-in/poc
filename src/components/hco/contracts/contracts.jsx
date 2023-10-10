@@ -35,7 +35,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: '1rem',
     border: 'none'
   },
-  fontFamily: 'Open Sans 500'
+  fontFamily: 'Museo Sans, Open Sans 500'
 }));
 
 const TableStyleContaner = styled(props => <TableContainer {...props} />)(({}) => ({

@@ -7,6 +7,7 @@ import { SelectFields } from '../../commonStyles/commonstyle.style';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { formLabelClasses } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import StyledForm from './styles';
 
 const theme = createTheme({
   components: {
@@ -33,27 +34,29 @@ const DropdownSelect = props => {
     <>
       <ThemeProvider theme={theme}>
         <Box sx={{ minWidth: 120 }}>
-          <FormControl style={{ width: '100%' }}>
-            <InputLabel variant='standard' htmlFor='uncontrolled-native'>
-              {props?.label}
-            </InputLabel>
-            <SelectFields
-              //defaultValue={30}
-              inputProps={{
-                name: props?.label,
-                id: 'uncontrolled-native'
-              }}
-              sx={{ color: 'black' }}
-              IconComponent={FaChevronDown}
-              disableUnderline={true}
-              onChange={handleSelectChange}
-            >
-              <option value='ALL'>ALL</option>
-              {props?.data?.map((item, index) => {
-                return <option value={item}>{item}</option>;
-              })}
-            </SelectFields>
-          </FormControl>
+          <StyledForm>
+            <FormControl style={{ width: '100%' }}>
+              <InputLabel variant='standard' htmlFor='uncontrolled-native'>
+                {props?.label}
+              </InputLabel>
+              <SelectFields
+                //defaultValue={30}
+                inputProps={{
+                  name: props?.label,
+                  id: 'uncontrolled-native'
+                }}
+                sx={{ color: 'black' }}
+                IconComponent={FaChevronDown}
+                disableUnderline={true}
+                onChange={handleSelectChange}
+              >
+                {!props.hideAllOption && <option value='ALL'>ALL</option>}
+                {props?.data?.map((item, index) => {
+                  return <option value={item}>{item}</option>;
+                })}
+              </SelectFields>
+            </FormControl>
+          </StyledForm>
         </Box>
       </ThemeProvider>
     </>

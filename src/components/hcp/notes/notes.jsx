@@ -37,9 +37,9 @@ const Notes = props => {
   ];
 
   return (
-    <Container style={{ height: window.innerHeight - 500, width: '100%' }}>
+    <Container style={{ width: '100%' }}>
       <Progress variant='ring' placement='local' message='Loading' visible={loading} />
-      <SectionDetail style={{ height: '690px' }}>
+      <SectionDetail style={{ height: '104vh' }}>
         {/* <InfoCard data={notesData} /> */}
         <Box className='info' sx={{ ml: '5px' }}>
           <Section style={{ height: '98%' }}>

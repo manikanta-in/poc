@@ -44,7 +44,7 @@ const HCPDetails = props => {
         );
       case '3':
         return (
-          <div style={{ width: '83%' }}>
+          <div style={{ width: '100%' }}>
             <OrgRelationships HcpID={props.HCPID} />
           </div>
         );

@@ -32,7 +32,7 @@ const HCODetails = props => {
     switch (panelShown) {
       case '1':
         return (
-          <div style={{ width: '84%' }}>
+          <div style={{ width: '88%' }}>
             <OrganizationDetails
               HcoID={props.HcoID}
               handleTabChange={handleTabChange}
@@ -42,13 +42,13 @@ const HCODetails = props => {
         );
       case '2':
         return (
-          <div style={{ width: '84%' }}>
+          <div style={{ width: '88%' }}>
             <ProfessionalRelationShips HcoID={props.HcoID} />
           </div>
         );
       case '3':
         return (
-          <div style={{ width: '84%' }}>
+          <div style={{ width: '88%' }}>
             <FacilityRelationShips HcoID={props.HcoID} />
           </div>
         );

@@ -55,6 +55,7 @@ export const Detail = styled.div`
     border: 1px solid #f4f6f4;
     border-radius: 10px;
     height: 100%;
+    width: 100%;
     .line {
       top: 370px;
       left: 323px;
@@ -195,7 +196,8 @@ export const SectionDetail = styled.div`
     background: #f4f6f4;
     border: 1px solid #f4f6f4;
     border-radius: 10px;
-    height: 100%;
+    height: auto;
+    width: 100%;
 
     .line {
       margin-left: 0px;
@@ -213,6 +215,11 @@ export const SectionDetail = styled.div`
       color: #707070;
       opacity: 0.6;
       margin-bottom: 4px;
+    }
+    .professional-relationships {
+      height: 65vh;
+      overflow: auto;
+      margin-top: -20px;
     }
   }
 `;
@@ -255,6 +262,8 @@ export const PaginationStyle = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-left: 20px;
+  margin-top: 40px;
+
   .limit {
     display: flex;
     align-items: center;
@@ -312,6 +321,12 @@ export const PaginationStyle = styled.div`
   .nav ul li button {
     margin: 0;
   }
+  .nav ul li div {
+    font-familiy: 'Open Sans';
+    font-size: 1rem;
+    color: white;
+    font-weight: 700;
+  }
   .css-153b27u-MuiPaginationItem-root {
     font-family: Open Sans, Segoe UI;
     font-weight: 900;
@@ -326,6 +341,7 @@ export const PaginationStyle = styled.div`
     color: #fff;
     height: auto;
   }
+
   .css-103n28x {
     font-family: Open Sans, Segoe UI;
     font-weight: 900;
@@ -345,21 +361,24 @@ export const PaginationStyle = styled.div`
 export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: '#FFFFF',
-    color: '#474B55', // theme.palette.common.black,
+    color: '#707070', // theme.palette.common.black,
     border: 'none',
-    fontSize: '1.05rem',
+    fontSize: '1rem',
     boxShadow: 'none',
-    // opacity: 0.5,
-    fontWeight: 400
+    // opacity: 0.4,
+    fontWeight: 400,
+    fontFamily: 'Museo Sans, Open Sans, Segoe UI'
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: '1.125rem',
+    fontSize: '1rem',
     border: 'none',
     opacity: 1,
     fontWeight: 500,
-    color: '#333333'
+    color: '#333333',
+    fontFamily: 'Museo Sans, Open Sans, Segoe UI',
+    overflowWrap: 'break-word'
   },
-  fontFamily: 'Open Sans, Segoe UI',
+  fontFamily: 'Museo Sans, Open Sans, Segoe UI',
   fontStyle: 'normal'
 }));
 
@@ -380,7 +399,7 @@ export const OrgStyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: 500,
     color: '#333333'
   },
-  fontFamily: 'Open Sans, Segoe UI',
+  fontFamily: 'Museo Sans, Open Sans, Segoe UI',
   fontStyle: 'normal'
 }));
 
@@ -419,7 +438,7 @@ export const FacilityStyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: 500,
     color: '#333333'
   },
-  fontFamily: 'Open Sans, Segoe UI',
+  fontFamily: 'Museo Sans, Open Sans, Segoe UI',
   fontStyle: 'normal'
 }));
 
@@ -458,6 +477,7 @@ export const OverFlowCharacters = styled.p`
   position: relative;
   bottom: 14px;
   left: 30px;
+  font-family: Open Sans, Segoe UI;
 `;
 
 export const NoRecords = styled.span`

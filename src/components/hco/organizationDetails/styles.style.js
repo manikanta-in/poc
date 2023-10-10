@@ -25,6 +25,7 @@ export const Detail = styled.div`
     border: 1px solid #f4f6f4;
     border-radius: 10px;
     height: 100%;
+    width: 100%;
 
     .line {
       margin-left: 0px;
@@ -36,7 +37,7 @@ export const Detail = styled.div`
       margin-top: 2px;
     }
     .label {
-      font-size: 0.85rem;
+      font-size: 1rem;
       font-weight: 300;
       letter-spacing: 0px;
       color: #707070;

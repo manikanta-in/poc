@@ -32,7 +32,7 @@ const ProfessionalRelationships = props => {
         </Grid>
       )}
       {!errorMsg?.pyAdviceText && (
-        <SectionDetail style={{ height: '730px' }}>
+        <SectionDetail style={{ height: '104vh' }}>
           <Box className='info' sx={{ ml: '5px' }}>
             <Section style={{ height: '96%' }}>
               <Grid container spacing={2} sx={{ ml: '2px', pl: '0px !important' }}>

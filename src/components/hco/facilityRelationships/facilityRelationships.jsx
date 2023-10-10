@@ -15,7 +15,7 @@ const FacilityRelationships = props => {
   const [errorMsg, setErrorMsg] = useState('');
 
   return (
-    <Container style={{ height: window.innerHeight - 500, width: '100%' }}>
+    <Container style={{ height: 'auto', width: '100%' }}>
       <Progress variant='ring' placement='local' message='Loading' visible={loading} />
       {errorMsg?.pyAdviceText && (
         <Grid item xs={12}>
@@ -23,7 +23,7 @@ const FacilityRelationships = props => {
         </Grid>
       )}
       {!errorMsg?.pyAdviceText && (
-        <SectionDetail style={{ height: '680px' }}>
+        <SectionDetail style={{ height: '104vh' }}>
           {/* <OrgCard data={orgData} /> */}
           <Box className='info' sx={{ ml: '5px' }}>
             <Section style={{ height: '96%' }}>

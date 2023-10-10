@@ -38,7 +38,7 @@ const TableStyleContainer = styled(props => <TableContainer {...props} />)(({}) 
     borderCollapse: 'separate !important',
     borderSpacing: '0px 10px !important',
     marginTop: '6px',
-    width: '99%'
+    width: '100%'
   }
 }));
 
@@ -107,36 +107,36 @@ const TableListView = props => {
           textAlign: 'center',
           justifyContent: 'center',
           fontSize: '0.875rem',
-          width: 124
+          width: 180
         };
       case 'Address':
         return {
-          textAlign: 'center',
-          justifyContent: 'center',
-          width: 600
+          //textAlign: 'center',
+          //justifyContent: 'center',
+          width: 400
         };
       case 'EntityName':
         return {
-          textAlign: 'center',
-          justifyContent: 'center',
+          //textAlign: 'center',
+          //justifyContent: 'center',
           width: 200
         };
       case 'Name':
         return {
-          textAlign: 'center',
-          justifyContent: 'center',
+          //textAlign: 'center',
+          //justifyContent: 'center',
           width: 200
         };
       case 'VendorID':
         return {
-          textAlign: 'center',
-          justifyContent: 'center',
+          //textAlign: 'center',
+          //justifyContent: 'center',
           width: 200
         };
       default:
         return {
-          textAlign: 'center',
-          justifyContent: 'center',
+          //textAlign: 'center',
+          //justifyContent: 'center',
           width: 125
         };
     }
@@ -156,7 +156,7 @@ const TableListView = props => {
 
   const getStyledColumn = (row, column) => {
     return (
-      <StyledTableCell align='center'>
+      <StyledTableCell align='left'>
         <div style={getStyle(row, column)}>{getColumnValue(row, column)}</div>
       </StyledTableCell>
     );
@@ -209,7 +209,7 @@ const TableListView = props => {
             )}
 
             {data && data.length > 0 && (
-              <PaginationStyle style={{ marginTop: '20px' }}>
+              <PaginationStyle>
                 <Box sx={{ flexGrow: 1 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={4}>

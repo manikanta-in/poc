@@ -45,15 +45,19 @@ const SelectActions = props => {
   };
 
   const onArrowClick = () => {
+    debugger;
     setCurrentStep(currentstep + 1);
     if (props.changeEvent) {
       props.changeEvent(selectedData);
     }
-    if(currentstep >= 2) {
+    if (currentstep >= 2) {
       props.onArrowClick();
     }
   };
 
+  const onCloseClick = () => {
+    props.onCloseClick();
+  };
 
   const mapResponse = data => {
     const result = [];
@@ -84,10 +88,16 @@ const SelectActions = props => {
           actions={actions}
           onChange={onStep1Change}
           onArrowClick={onArrowClick}
-          onCheckClick={onCheckClick}
+          onCloseClick={onCloseClick}
         ></Step1>
       )}
-      {currentstep == 2 && <Step2 onArrowClick={onArrowClick} onChange={onStep2Change}></Step2>}
+      {currentstep == 2 && (
+        <Step2
+          onArrowClick={onArrowClick}
+          onCloseClick={onCloseClick}
+          onChange={onStep2Change}
+        ></Step2>
+      )}
     </Box>
   );
 };

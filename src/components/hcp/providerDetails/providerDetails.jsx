@@ -80,10 +80,10 @@ const ProviderDetails = props => {
     'ProviderLanguages'
   ];
 
+
   const onChange = (data) => {
     console.log(data);
   };
-
   return (
     <Container style={{ height: window.innerHeight - 500, width: '100%' }}>
       <Progress variant='ring' placement='local' message='Loading' visible={isLoading} />
@@ -240,11 +240,7 @@ const ProviderDetails = props => {
                                         ]?.map((providers, index1) => (
                                           <p title={providers}>
                                             {providers}
-                                            {providerData?.ProfessionalDetails[tableValues[index]]
-                                              ?.length ===
-                                            index1 + 1
-                                              ? ''
-                                              : ','}
+                                            <br />
                                           </p>
                                         ))
                                     : providerData?.ProfessionalDetails?.[tableValues[index]] ===
@@ -343,7 +339,7 @@ const ProviderDetails = props => {
                     </Grid>
                     <Grid item xs={3}>
                       <div className='label' style={{ marginBottom: 4 }}>
-                        Add, Licenses
+                        Add. Licenses
                       </div>
                       <ProviderWrapper
                         className='value'

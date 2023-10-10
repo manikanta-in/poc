@@ -141,13 +141,13 @@ const OrganizationSearchList = props => {
   const meta = {
     columns: [
       { label: `Organization ID`, align: 'left', fieldId: 'ID' },
-      { label: `Entity Name`, align: 'center', fieldId: 'EntityName' },
-      { label: `Status`, align: 'center', fieldId: 'NetworkStatus' },
-      { label: `Tax ID`, align: 'center', fieldId: 'TaxID' },
-      { label: `Phone #`, align: 'center', fieldId: 'Phone' },
-      { label: `Medicare #`, align: 'center', fieldId: 'Medicare' },
-      { label: `NPI`, align: 'center', fieldId: 'NPI' },
-      { label: `Address`, align: 'center', fieldId: 'Address' }
+      { label: `Entity Name`, align: 'left', fieldId: 'EntityName' },
+      { label: `Status`, align: 'left', fieldId: 'NetworkStatus' },
+      { label: `Tax ID`, align: 'left', fieldId: 'TaxID' },
+      { label: `Phone #`, align: 'left', fieldId: 'Phone' },
+      { label: `Medicare #`, align: 'left', fieldId: 'Medicare' },
+      { label: `NPI`, align: 'left', fieldId: 'NPI' },
+      { label: `Address`, align: 'left', fieldId: 'Address' }
     ]
   };
 

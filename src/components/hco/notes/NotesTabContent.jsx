@@ -169,7 +169,7 @@ const NotesTabContent = props => {
         resultsFetched === 'fetched' && <EmptyState />}
 
       {notesData && notesData?.Records?.length > 0 && (
-        <PaginationStyle style={{ marginTop: '26px' }}>
+        <PaginationStyle>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
               <Grid item xs={4}>

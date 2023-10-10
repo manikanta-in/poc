@@ -26,6 +26,7 @@ export const Detail = styled.div`
     border: 1px solid #f4f6f4;
     border-radius: 10px;
     height: 100%;
+    width: 100%;
 
     .line {
       margin-left: 0px;
@@ -93,5 +94,6 @@ export const ContactCard = styled.div`
   }
   .emailID {
     color: #008bbf !important;
+    font-family: 'Museo Sans', 'Open Sans';
   }
 `;

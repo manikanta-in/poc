@@ -48,6 +48,7 @@ export const Detail = styled.div`
     border: 1px solid #f4f6f4;
     border-radius: 10px;
     height: 100%;
+    width: 100%;
 
     .line {
       width: 50px;

@@ -20,6 +20,7 @@ export default function OrganizationTab(props) {
   const { setSearchData, onClose, setFetchResults, setTypeOfSearch } = props;
   const [fieldsRequired, setFieldsRequired] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [triggerRender, setTriggerRender] = useState(false);
 
   const [submitDisable, setsubmitDisable] = useState(true);
   const backButtonText = '< Back to Search Screen';
@@ -53,7 +54,8 @@ export default function OrganizationTab(props) {
     TaxID: '',
     NPIID: '',
     ZipCode: '',
-    HCOID: ''
+    HCOID: '',
+    POrg: ''
   });
 
   const [formData, setFormData] = useState({
@@ -78,23 +80,6 @@ export default function OrganizationTab(props) {
     CheckSubmitEnabled();
   }, [formData]);
 
-  const checkString = event => {
-    // let valueLength = event.target.value.length === 0 ? true : false;
-    // if (valueLength) {
-    //   emptyErrMsg(event.target.name);
-    //   return false;
-    // } else {
-    //   if (!event.target.value.match(/^[a-zA-Z]+$/)) {
-    //     errors[`${event.target.name}`] = 'Please enter only letters';
-    //     setErrors(errors);
-    //     return true;
-    //   } else {
-    //     emptyErrMsg(event.target.name);
-    //     return false;
-    //   }
-    // }
-  };
-
   const emptyErrMsg = name => {
     errors[`${name}`] = '';
     setErrors(errors);
@@ -104,41 +89,55 @@ export default function OrganizationTab(props) {
     let formIsValid = true;
 
     if (event.target.name === 'TaxID') {
-      if (!event.target.value.match(/^[0-9]+$/) && event.target.value?.length !== 0) {
+      if (!event.target.value.match(/^[0-9]{9}$/) && event.target.value?.length !== 0) {
         errors[`${event.target.name}`] = 'Enter valid 9 digit TAX ID';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
+
         return true;
       } else {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       }
     } else if (event.target.name === 'NPIID') {
-      var regExp = new RegExp('^\\d+$');
-      if (!regExp.test(event.target.value) && event.target.value?.length !== 0) {
+      if (!event.target.value.match(/^[0-9]{10}$/) && event.target.value?.length !== 0) {
         errors[`${event.target.name}`] = 'Enter valid 10 digit NPI ID';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
+
         return true;
       } else {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       }
     } else if (event.target.name === 'ZipCode') {
       if (checkZip(event.target.value) || event.target.value?.length === 0) {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       } else {
         errors[`${event.target.name}`] = 'Enter valid 5 digit Zip code';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
+
         return true;
       }
     } else if (event.target.name === 'HCOID') {
       var regExp = /^O-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/;
       if (regExp.test(event.target.value) || event.target.value?.length === 0) {
         emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
         return false;
       } else {
         errors[`${event.target.name}`] = 'Enter a valid HCO ID';
         setErrors(errors);
+        setTriggerRender(!triggerRender);
         return true;
       }
     }
@@ -157,7 +156,7 @@ export default function OrganizationTab(props) {
   }
 
   const handleChange = e => {
-    handleValidation(e);
+    //handleValidation(e);
 
     setFormData(allValues => {
       if (e.target.name === 'HCOID') {
@@ -168,9 +167,12 @@ export default function OrganizationTab(props) {
     });
   };
   const checkLength = param => {
-    //Enable Search button more than 1 character
-    if (param?.length >= 1) return true;
-    else return false;
+    if (param?.length >= 1) {
+      //Enable Search button more than 1 character
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const CheckSubmitEnabled = () => {
@@ -180,18 +182,43 @@ export default function OrganizationTab(props) {
       stateVal['City'].length > 0 ||
       stateVal['County'].length > 0 ||
       stateVal['EntityType'].length > 0 ||
-      stateVal['HCOID'].length > 0 ||
+      //stateVal['HCOID'].length > 0 ||
       stateVal['HCOName'].length > 0 ||
       stateVal['LegacyProviderID'].length > 0 ||
       stateVal['LegacyVendorID'].length > 0 ||
-      stateVal['NPIID'].length > 0 ||
       stateVal['POrg'].length > 0 ||
       stateVal['State'].length > 0 ||
-      stateVal['Street'].length > 0 ||
-      stateVal['TaxID'].length > 0 ||
-      stateVal['ZipCode'].length > 0
+      stateVal['Street'].length > 0
+      //stateVal['NPIID'].length > 0 ||
+      //stateVal['TaxID'].length > 0 ||
+      //stateVal['ZipCode'].length > 0
     ) {
       setsubmitDisable(false);
+    } else if (stateVal['HCOID']?.length > 0) {
+      var regExp = /^O-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/;
+      if (regExp.test(stateVal['HCOID'])) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['ZipCode'].length > 0) {
+      if (checkZip(stateVal['ZipCode'])) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['TaxID'].length > 0) {
+      if (stateVal['TaxID'].match(/^[0-9]{9}$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['NPIID'].length > 0) {
+      if (stateVal['NPIID'].match(/^[0-9]{10}$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
     } else {
       setsubmitDisable(true);
     }
@@ -442,6 +469,7 @@ export default function OrganizationTab(props) {
             name='HCOName'
             label='HCO Name'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.HCOName}
           />
@@ -450,15 +478,17 @@ export default function OrganizationTab(props) {
             name='HCOID'
             label='HCO ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.HCOID}
-            //info={errors?.HCOID}
-            //status={errors?.HCOID ? 'error' : 'pending'}
+            info={errors?.HCOID}
+            status={errors?.HCOID ? 'error' : 'pending'}
           />
           <Input
             name='LegacyProviderID'
             label='Legacy Provider ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.LegacyProviderID}
           />
@@ -466,16 +496,18 @@ export default function OrganizationTab(props) {
             name='TaxID'
             label='Tax ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.TaxID}
             maxLength='9'
-            //info={errors?.TaxID}
-            //status={errors?.TaxID ? 'error' : 'pending'}
+            info={errors?.TaxID}
+            status={errors?.TaxID ? 'error' : 'pending'}
           />
           <Input
             name='LegacyVendorID'
             label='Legacy Vendor ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.LegacyVendorID}
             disabled={true}
@@ -484,23 +516,28 @@ export default function OrganizationTab(props) {
             name='NPIID'
             label='NPI ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.NPIID}
             maxLength='10'
-            //info={errors?.NPIID}
-            //status={errors?.NPIID ? 'error' : 'pending'}
+            info={errors?.NPIID}
+            status={errors?.NPIID ? 'error' : 'pending'}
           />
           <Input
             name='POrg'
             label='POrg'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.POrg}
+            info={errors?.POrg}
+            status={errors?.POrg ? 'error' : 'pending'}
           />
           <Select
             label='Network Status'
             name='NetworkStatus'
             onChange={handleChange}
+            onBlur={handleValidation}
             value={formData.NetworkStatus}
             disabled={true}
           >
@@ -512,9 +549,10 @@ export default function OrganizationTab(props) {
             name='Street'
             label='Street'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.Street}
-            //status={errors?.Street ? 'error' : 'pending'}
+            info={errors?.Street}
+            status={errors?.Street ? 'error' : 'pending'}
             value={formData.Street}
             disabled={true}
           />
@@ -522,9 +560,10 @@ export default function OrganizationTab(props) {
             name='City'
             label='City'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.City}
-            //status={errors?.City ? 'error' : 'pending'}
+            info={errors?.City}
+            status={errors?.City ? 'error' : 'pending'}
             value={formData.City}
             disabled={true}
           />
@@ -532,6 +571,7 @@ export default function OrganizationTab(props) {
             label='State'
             name='State'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.State}
             disabled={true}
@@ -540,20 +580,22 @@ export default function OrganizationTab(props) {
             name='ZipCode'
             label='Zip Code'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.ZipCode}
             disabled={true}
-            maxLength='10'
-            //info={errors?.ZipCode}
-            //status={errors?.ZipCode ? 'error' : 'pending'}
+            maxLength='5'
+            info={errors?.ZipCode}
+            status={errors?.ZipCode ? 'error' : 'pending'}
           />
           <Input
             name='County'
             label='County'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.County}
-            //status={errors?.County ? 'error' : 'pending'}
+            info={errors?.County}
+            status={errors?.County ? 'error' : 'pending'}
             value={formData.County}
             disabled={true}
           />

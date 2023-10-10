@@ -4,6 +4,7 @@ export default styled.div(() => {
   return css`
     margin: 0px 0;
     background-color: white;
+    padding: 1rem;
 
     .title {
       font-size: 1.25rem;
@@ -11,7 +12,7 @@ export default styled.div(() => {
       letter-spacing: 0px;
       color: #003863;
     }
-  
+
     .line {
       margin-left: 0px;
       width: 50px;

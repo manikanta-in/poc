@@ -25,6 +25,7 @@ export const Detail = styled.div`
     border: 1px solid #f4f6f4;
     border-radius: 10px;
     height: 100%;
+    width: 100%;
 
     .line {
       margin-left: 0px;
@@ -44,7 +45,7 @@ export const Detail = styled.div`
       margin-bottom: 4px;
     }
     .value {
-      font-size: 1.125rem;
+      font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0px;
       color: #333333;
@@ -63,7 +64,7 @@ export const DateIconWrapper = styled.div`
     text-align: left;
     letter-spacing: 0px;
     color: #707070;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 300;
     opacity: 1;
     margin-top: -3px;
@@ -120,7 +121,7 @@ export const TIME = styled.p`
   letter-spacing: 0px;
   color: #333333;
   opacity: 1;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   margin-left: 29px;
 `;
@@ -172,6 +173,7 @@ export const ImageDiv = styled.div`
   }
 `;
 export const ProviderWrapper = styled.div`
+  font-size: 1rem;
   overflow-x: ${props => (props.legacyProviderIds ? 'hidden' : '')};
   /* Handle */
   ::-webkit-scrollbar {

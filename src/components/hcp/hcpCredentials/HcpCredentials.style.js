@@ -19,18 +19,19 @@ export const Text = styled.p`
   text-align: left;
   letter-spacing: 0px;
   color: #707070;
-  opacity: 1;
-  font-size: 1.125rem;
-  font-family: Segoe UI;
+  opacity: 0.6;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: 'Museo Sans', 'Open Sans', sans-serif;
 `;
 export const DateAndTime = styled.p`
   text-align: left;
   letter-spacing: 0px;
   color: #333333;
   opacity: 1;
-  font-size: 1.25rem;
-  font-family: Segoe UI;
-  font-weight: 600;
+  font-size: 1rem;
+  font-family: 'Museo Sans', 'Open Sans', sans-serif;
+  font-weight: 500;
 `;
 export const TextUnderLine = styled.p`
   text-align: left;
@@ -65,7 +66,7 @@ export const InfoText = styled.p`
   color: #333333;
   opacity: 1;
   font-size: 1.125rem;
-  font-family: Segoe UI;
+  font-family: Museo Sans, 'Open Sans', sans-serif;
   font-weight: 600;
   .line {
     width: 50px;
@@ -89,7 +90,7 @@ export const BackButton = styled.button`
   .back-text {
     font-weight: 400;
     padding: 6px 8px 6px 0px;
-    font-family: MuseoSans, Segoe UI;
+    font-family: MuseoSans, 'Open Sans', sans-serif;
   }
 `;
 export const Detail = styled.div`
@@ -135,6 +136,7 @@ export const Detail = styled.div`
     border: 1px solid #f4f6f4;
     border-radius: 10px;
     height: 100%;
+    width: 100%;
 
     .line {
       width: 50px;

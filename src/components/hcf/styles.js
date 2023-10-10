@@ -9,7 +9,7 @@ const StyledTabs = styled.div(() => {
       max-width: 250px;
     }
     .tabs span {
-      font-family: 'Open Sans';
+      font-family: 'Museo Sans', 'Open Sans';
       font-weight: 500;
       color: rgb(71, 75, 85);
     }

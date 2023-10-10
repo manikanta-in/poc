@@ -119,6 +119,7 @@ const HcpCredentials = props => {
               onTabClick={handleTabChange}
               currentTabId={activeTab}
               className='SearchTabs'
+              style={{ padding: '0.5rem' }}
             />
             <div style={{ marginTop: '30px' }}>{renderTab()}</div>
           </div>

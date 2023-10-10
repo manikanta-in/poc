@@ -9,16 +9,15 @@ import {
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { BiSolidObjectsHorizontalLeft } from 'react-icons/bi';
+import DetailedView from './DetailedView/DetailedView.jsx';
 
 //import SelectBox from "@components/common/Select";
 
 const ContractCardInfo = props => {
-  const { ContractsAndFeeSchedules, selectedProvider } = props;
+  const { ContractsAndFeeSchedules, selectedProvider, setShowDetailedView } = props;
 
-  const config = {
-    activeMenu: 4, // 4 represents the menuconfig id for hcp location & contracts
-    customComponentName: 'DetailedView',
-    label: selectedProvider + ' || ' + 'Detailed Vie...'
+  const handleClick = () => {
+    setShowDetailedView(true);
   };
 
   return (
@@ -36,11 +35,7 @@ const ContractCardInfo = props => {
               <Grid item sm={2}>
                 <BiSolidObjectsHorizontalLeft style={{ fontSize: '0.938rem', color: '#008BBF' }} />
 
-                <LinkStyled
-                  onClick={() => {
-                    customTab(dispatch, 'HCP', config);
-                  }}
-                >
+                <LinkStyled onClick={handleClick}>
                   <div className='detailed-view' style={{ marginBottom: 4 }}>
                     Detailed View
                   </div>

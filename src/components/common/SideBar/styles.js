@@ -48,12 +48,12 @@ const StyledDrawer = styled.div(() => {
     .heading p:after {
       content: '';
       height: 0px;
-      width: 50px;
+      width: 79px;
       border: 3px solid #008bbf;
       opacity: 0.5;
       position: absolute;
       bottom: -0.5em;
-      left: 30px;
+      left: 40px;
       transform: translate(-50%);
     }
 

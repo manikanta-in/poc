@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import SearchBar from '../common/SearchBar/SearchBar.jsx';
+import ActionEditor from '../hcp/providerDetails/action.jsx';
 
 // Duplicated runtime code from Constellation Design System Component
 

@@ -144,8 +144,10 @@ const LocationCard = props => {
                     <DateAndTime>{ContactName(data)}</DateAndTime>
                   </Grid>
                   <Grid item sm={3}>
-                    <Text>Phone#</Text>
-                    <p style={{ color: '#008BBF' }}>{data?.Phone != '' ? data?.Phone : '--'}</p>
+                    <Text>Phone #</Text>
+                    <p style={{ color: '#008BBF', fontSize: '1rem' }}>
+                      {data?.Phone != '' ? data?.Phone : '--'}
+                    </p>
                   </Grid>
                   <Grid item sm={3}>
                     <Text>Email</Text>

@@ -15,6 +15,7 @@ import { Grid } from '@mui/material';
 import AccessibilityIcon from '../../../common/Icons/AccessibilityIcon/index.jsx';
 import CalenderIcon from '../../../common/Icons/CalenderIcon/index.jsx';
 import { changeDateFormate } from '../../../shared/utils';
+import DetailedView from './DetailedView/DetailedView.jsx';
 
 const ProviderInfoCard = props => {
   const { locationObject, locationData, showLoader, hideLoader, HcpID } = props;
@@ -29,6 +30,7 @@ const ProviderInfoCard = props => {
   const [contactInfo, setContactInfo] = useState(null);
   const [expertise, setExpertise] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [showDetailedView, setShowDetailedView] = useState(false);
 
   const dataPageName = 'D_HCPLocationDetailsExpPage';
   const context = 'app/context';
@@ -37,6 +39,10 @@ const ProviderInfoCard = props => {
   const options = {
     invalidateCache: true
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   useEffect(() => {
     setIsLoading(true);
@@ -152,7 +158,9 @@ const ProviderInfoCard = props => {
 
   return (
     <>
-      {isLoading ? (
+      {showDetailedView ? (
+        <DetailedView facilityData={locationExpData} setShowDetailedView={setShowDetailedView} />
+      ) : isLoading ? (
         <div>
           <Progress variant='ring' placement='local' message='Loading' visible={isLoading} />
         </div>
@@ -163,7 +171,7 @@ const ProviderInfoCard = props => {
           <Grid container style={{ marginLeft: '10px' }}>
             <Grid item sm={9}>
               <Grid container>
-                <Grid item sm={7}>
+                <Grid item sm={6.5}>
                   <Select
                     variant='standard'
                     disableUnderline={true}
@@ -274,6 +282,7 @@ const ProviderInfoCard = props => {
                 vendor: '--'
               }
             ]}
+            setShowDetailedView={setShowDetailedView}
             //selectedProvider={selectedProvider}
           />
         </div>

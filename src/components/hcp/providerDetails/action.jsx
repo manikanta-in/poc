@@ -12,7 +12,7 @@ const ActionEditor = ({ onChange }) => {
     setShowEdit(!showEdit);
   };
 
-  const changeEvent = (data) => {
+  const changeEvent = data => {
     setData(data);
   };
 
@@ -27,6 +27,10 @@ const ActionEditor = ({ onChange }) => {
     onChange(data);
   };
 
+  const onCloseClick =() => {
+    setShowEdit(true);
+  }
+
   return (
     <>
       <ActionSelectModal
@@ -34,6 +38,7 @@ const ActionEditor = ({ onChange }) => {
         onCheckClick={onCheckClick}
         changeEvent={changeEvent}
         isShowing={!showEdit}
+        onCloseClick={onCloseClick}
         toggle={toggle}
       />
       {showEdit && (
@@ -49,13 +54,16 @@ const ActionEditor = ({ onChange }) => {
   );
 };
 
-const ActionSelectModal = ({ changeEvent, onArrowClick, onCheckClick, isShowing, toggle }) => {
+const ActionSelectModal = ({ changeEvent, onArrowClick, 
+  onCloseClick,
+  onCheckClick, isShowing, toggle }) => {
   return (
     <Model isShowing={isShowing} hide={toggle} width={'400px'} height={'200px'}>
       <SelectActions
         changeEvent={changeEvent}
         onArrowClick={onArrowClick}
         onCheckClick={onCheckClick}
+        onCloseClick={onCloseClick}
       />
     </Model>
   );

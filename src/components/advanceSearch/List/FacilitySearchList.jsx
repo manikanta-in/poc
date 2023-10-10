@@ -147,12 +147,12 @@ const FacilitySearchList = props => {
   const meta = {
     columns: [
       { label: `Facility ID`, align: 'left', fieldId: 'FacilityID' },
-      { label: `Facility Name`, align: 'center', fieldId: 'FacilityName' },
-      { label: `Status`, align: 'center', fieldId: 'NetworkStatus' },
-      { label: `HCO Name`, align: 'center', fieldId: 'HCOName' },
-      { label: `Tax ID`, align: 'center', fieldId: 'TaxID' },
-      { label: `Phone #`, align: 'center', fieldId: 'Phone' },
-      { label: `Address`, align: 'center', fieldId: 'Address' }
+      { label: `Facility Name`, align: 'left', fieldId: 'FacilityName' },
+      { label: `Status`, align: 'left', fieldId: 'NetworkStatus' },
+      { label: `HCO Name`, align: 'left', fieldId: 'HCOName' },
+      { label: `Tax ID`, align: 'left', fieldId: 'TaxID' },
+      { label: `Phone #`, align: 'left', fieldId: 'Phone' },
+      { label: `Address`, align: 'left', fieldId: 'Address' }
     ]
   };
 

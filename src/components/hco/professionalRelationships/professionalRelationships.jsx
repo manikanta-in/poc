@@ -32,7 +32,7 @@ const ProfessionalRelationships = props => {
         </Grid>
       )}
       {!errorMsg?.pyAdviceText && (
-        <SectionDetail style={{ height: '730px' }}>
+        <SectionDetail style={{ height: '104vh' }}>
           {/* <OrgCard data={orgData} /> */}
           <Box className='info' sx={{ ml: '5px' }}>
             <Section style={{ height: '96%' }}>

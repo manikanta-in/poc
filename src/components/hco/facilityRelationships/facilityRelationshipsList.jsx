@@ -33,7 +33,8 @@ const TableStyleContaner = styled(props => <TableContainer {...props} />)(({}) =
     borderCollapse: 'separate !important',
     borderSpacing: '0px 7px !important',
     marginTop: '30px',
-    width: '126%'
+    width: '110%',
+    tableLayout: 'fixed'
   }
 }));
 
@@ -114,31 +115,33 @@ const FacilityRelationShipsList = props => {
         props.setLoading(false);
       });
     //searchDB();
-  }, []);
+  }, [controller]);
 
   return (
     <ThemeProvider theme={theme}>
       <div style={{ marginTop: 20 }}>
         <TableStyleContaner component={Paper} style={{ border: 'none', boxShadow: 'none' }}>
-          <div ref={scrollToTop} style={{ height: '410px', overflow: 'auto' }}>
+          <div ref={scrollToTop} className='professional-relationships'>
             <Table sx={{ minWidth: 700 }} aria-label='customized table' stickyHeader>
               <TableHead>
                 <TableRow>
                   <StyledTableCell align='left'>Facility&nbsp;ID</StyledTableCell>
-                  <StyledTableCell align='center'>Facility&nbsp;Name</StyledTableCell>
-                  <StyledTableCell align='center'>Status</StyledTableCell>
+                  <StyledTableCell align='left'>Facility&nbsp;Name</StyledTableCell>
+                  <StyledTableCell align='left' sx={{ width: 180 }}>
+                    Status
+                  </StyledTableCell>
                   {/* <StyledTableCell align='center'>HCO&nbsp;Name</StyledTableCell> */}
-                  <StyledTableCell align='center'>Tax&nbsp;ID</StyledTableCell>
-                  <StyledTableCell align='center'>Phone&nbsp;#</StyledTableCell>
+                  <StyledTableCell align='left'>Tax&nbsp;ID</StyledTableCell>
+                  <StyledTableCell align='left'>Phone&nbsp;#</StyledTableCell>
                   {/* <StyledTableCell align='center'>Medicare&nbsp;#</StyledTableCell> */}
-                  <StyledTableCell align='center'>Address</StyledTableCell>
+                  <StyledTableCell align='left'>Address</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {facilityData &&
                   facilityData?.Records?.map((row, index) => (
                     <StyledTableRow key={index}>
-                      <StyledTableCell component='th'>
+                      <StyledTableCell align='left' component='th'>
                         <LinkStyled
                           style={{ width: '110%' }}
                           onClick={() => console.log('onclick')}
@@ -146,10 +149,10 @@ const FacilityRelationShipsList = props => {
                           {row.FacilityID ? row.FacilityID : '--'}
                         </LinkStyled>
                       </StyledTableCell>
-                      <StyledTableCell align='center'>
+                      <StyledTableCell align='left'>
                         {row.FacilityName ? row.FacilityName : '--'}
                       </StyledTableCell>
-                      <StyledTableCell align='center'>
+                      <StyledTableCell align='left'>
                         <div
                           style={{
                             background:
@@ -167,21 +170,19 @@ const FacilityRelationShipsList = props => {
                             textAlign: 'center',
                             justifyContent: 'center',
                             fontSize: '0.875rem',
-                            width: '114%'
+                            width: '100%'
                           }}
                         >
                           {row.Status ? row.Status : '--'}
                         </div>
                       </StyledTableCell>
-                      {/* <StyledTableCell align='center'></StyledTableCell> */}
-                      <StyledTableCell align='center'>
-                        {row.TaxID ? row.TaxID : '--'}
-                      </StyledTableCell>
-                      <StyledTableCell align='center'>
+                      {/* <StyledTableCell align='left'></StyledTableCell> */}
+                      <StyledTableCell align='left'>{row.TaxID ? row.TaxID : '--'}</StyledTableCell>
+                      <StyledTableCell align='left'>
                         <div style={{ width: '114%' }}>{row.Phone ? row.Phone : '--'}</div>
                       </StyledTableCell>
-                      {/* <StyledTableCell align='center'>{row.Medicare}</StyledTableCell> */}
-                      <StyledTableCell align='center'>{constructAddress(row)}</StyledTableCell>
+                      {/* <StyledTableCell align='left'>{row.Medicare}</StyledTableCell> */}
+                      <StyledTableCell align='left'>{constructAddress(row)}</StyledTableCell>
                     </StyledTableRow>
                   ))}
                 {resultsFetched === 'loading' && <></>}
@@ -193,7 +194,7 @@ const FacilityRelationShipsList = props => {
         </TableStyleContaner>
 
         {facilityData && facilityData?.Records?.length > 0 && (
-          <PaginationStyle style={{ marginTop: '30px' }}>
+          <PaginationStyle>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>

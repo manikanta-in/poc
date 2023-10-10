@@ -38,7 +38,7 @@ export const FacilityHeader = styled.div`
 `;
 
 export const Label = styled.p`
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 300;
   letter-spacing: 0px;
   color: #474b55;
@@ -46,7 +46,7 @@ export const Label = styled.p`
 `;
 
 export const Value = styled.p`
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0px;
   color: black;

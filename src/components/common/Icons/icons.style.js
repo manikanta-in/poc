@@ -45,12 +45,10 @@ export const Close = styled.div`
   // justify-content:center;
   // background:#A8ABAC1A;
   box-shadow: inset 0px 0px 2px #00000029, 0px 1px 2px #00000029;
-  height: 30px;
-  width: 30px;
-  border-radius: 5px;
-  Margin-left:-10px;
+  height: 40px;
+  width: 40px;
+  border-radius: 10px;
   cursor: pointer;
-  background-color:#dfdfdf
 `;
 
 export const Tick = styled.div`
@@ -88,8 +86,8 @@ export const ChevronDownIconStyled = styled.div`
 
 export const TiPlusStyled = styled.svg`
   position: relative !important;
-  top: 72px;
-  left: -92px;
+  top: 78px;
+  left: -86px;
   color: rgb(234, 64, 64);
   font-size: 2.1rem;
   rotate: 47deg;
@@ -105,7 +103,7 @@ export const CgCheckStyled = styled.svg`
 
 export const Arrow = styled(Col)`
     align-items:center;
-    cursor:${(props) => (!props.disable ? `no-drop` : `pointer`)};
+    cursor:${(props) => (props.disable ? `no-drop` : `pointer`)};
     justify-content:center;
     background:#A8ABAC1A;
     height:40px;

@@ -14,13 +14,13 @@ export const HeadingText = styled.p`
 `;
 
 export const TableHeadText = styled(HeaderText)`
-  text-align: center;
+  text-align: left;
 `;
 export const TableRowsText = styled(TableRowText)`
   font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  color: black;
+  font-weight: 500;
+  text-align: left;
+  color: #333333;
 `;
 export const Wrapper = styled.div`
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -126,8 +126,8 @@ export const ParticipationWrapper = styled.div`
 export const Text = styled.p`
   text-align: left;
   letter-spacing: 0px;
-  color: black;
-  opacity: 1;
+  color: #707070;
+  opacity: 0.6;
   font-size: 1rem;
   font-weight: 300;
   margin-bottom: 5px;
@@ -165,7 +165,7 @@ export const Day = styled.p`
   text-align: left;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Open Sans';
+  font-family: 'Museo Sans', 'Open Sans';
   font-style: normal;
   letter-spacing: 0px;
   color: #707070;
@@ -179,7 +179,7 @@ export const Time = styled.p`
   text-align: left;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Open Sans';
+  font-family: 'Museo Sans', 'Open Sans';
   font-style: normal;
   letter-spacing: 0px;
   color: #333333;
@@ -202,10 +202,19 @@ export const DateAndTime = styled.p`
   letter-spacing: 0px;
   color: #333333;
   opacity: 1;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 500;
   width: 150px;
 `;
+export const Value = styled.p`
+  text-align: left;
+  letter-spacing: 0px;
+  color: #333333;
+  opacity: 1;
+  font-size: 1rem;
+  font-weight: 500;
+`;
+
 export const TextUnderLine = styled.p`
   text-align: left;
   letter-spacing: 0px;
@@ -352,6 +361,7 @@ export const Detail = styled.div`
     border: 1px solid #f4f6f4;
     border-radius: 10px;
     height: 100%;
+    width: 100%;
     .line {
       margin-left: 20px;
       width: 50px;
@@ -375,6 +385,13 @@ export const Detail = styled.div`
       color: #707070;
       opacity: 0.6;
       margin-bottom: 4px;
+    }
+    .header-line {
+      width: 50px;
+      height: 0px;
+      border: 2px solid #008bbf;
+      opacity: 0.5;
+      margin-top: 2px;
     }
     .value {
       font-size: 1.125rem;
@@ -448,7 +465,7 @@ export const DateIconWrapper = styled.div`
     text-align: left;
     letter-spacing: 0px;
     color: #707070;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 300;
     opacity: 1;
     margin-top: -3px;
@@ -467,7 +484,7 @@ export const TIME = styled.p`
   letter-spacing: 0px;
   color: #333333;
   opacity: 1;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   margin-left: 26px;
 
@@ -482,6 +499,7 @@ export const TIME = styled.p`
 `;
 export const Email = styled.p`
   color: #008bbf;
+  font-size: 1rem;
 
   @media screen and (min-width: 1200px) and (max-width: 1899px) {
     overflow: auto;
@@ -654,6 +672,25 @@ export const AreaOfExpertiseStyle = styled.div`
   }
 `;
 
+export const OfficeHourStyle = styled.div`
+  height: 80%;
+  overflow: auto;
+  overflow-x: hidden;
+  /* Handle */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #076bc9;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #076bc9;
+  }
+`;
+
 export const OverFlowCharacters = styled.div`
   position: relative;
   margin-top: 130px;
@@ -670,4 +707,13 @@ export const SelectWrapper = styled.div`
   justify-content: right;
   position: relative;
   right: 150%;
+`;
+
+export const Section = styled.div`
+  background: #fff;
+  boxshadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  opacity: 1;
+  margin: 10px;
+  padding: 20px 15px 20px 15px;
 `;

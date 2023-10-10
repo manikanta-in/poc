@@ -1,120 +1,109 @@
-import React, { useEffect, useRef } from 'react';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import Grid from '@mui/material/Grid';
-import TableBody from '@mui/material/TableBody';
-import { StyledTableCell, StyledTableRow } from '../../../../commonStyles/commonstyle.style';
-import TableContainer from '@mui/material/TableContainer';
-import { styled } from '@mui/material/styles';
-
-const TableStyleContaner = styled(props => <TableContainer {...props} />)(({}) => ({
-  table: {
-    borderCollapse: 'separate !important',
-    borderSpacing: '0px 10px !important',
-    marginTop: '-15px',
-    width: '99%'
-  }
-}));
+import React, { useEffect, useRef, useState } from 'react';
+import TableView from '../../../../common/DetailedViewTable/Table.jsx';
+import DropdownSelect from '../../../../common/DropdownSelect/DropdownSelect.jsx';
+import { fullCompanyName } from '../../../../shared/utils';
 
 const PR1033 = props => {
-  const { pr1033Data } = props;
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [data, setData] = useState([{ test: '1' }]);
+  const [resultsFetched, setResultsFetched] = useState('loading');
+  const [dropdownData, setDropdownData] = useState([]);
+  const [filter, setFilter] = useState('ALL');
+  const { legacyID } = props;
+  const dataPageName = 'D_HCPPR1033';
+  const context = 'app/context';
+  const options = {
+    invalidateCache: true
+  };
 
-  const tableRef = useRef(null);
+  const fetchData = () => {
+    const parameters = { LegacyProviderID: legacyID };
+    setIsLoading(true);
+    PCore.getDataPageUtils()
+      .getPageDataAsync(dataPageName, context, parameters, options)
+      .then(response =>
+        // The response of this API is as shown below:
+        {
+          setData(response?.PR1032);
+          setResultsFetched('fetched');
+          if (response?.ErrorPage) {
+            setErrorMsg(response.ErrorPage);
+          }
+          setIsLoading(false);
+        }
+      )
+      .catch(error => {
+        console.log('error' + error);
+        setErrorMsg(error);
+        setResultsFetched('error');
+        setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
-    tableRef.current.scrollTo(0, 0);
-  });
+    fetchData();
+  }, [legacyID]);
 
-  const data = [
-    {
-      name: 30,
-      value: 30
-    },
-    {
-      name: 60,
-      value: 60
-    },
-    {
-      name: 90,
-      value: 90
-    }
-  ];
-  const onChange = () => {
-    //
+  useEffect(() => {
+    PCore.getDataPageUtils()
+      .getDataAsync('D_CompanyDetailsList', context)
+      .then(response => {
+        setDropdownData(response?.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const changeCompanyFilter = filter => {
+    //setLoading(true);
+    setFilter(filter);
+  };
+
+  const meta = {
+    columns: [
+      { label: `LOB`, align: 'left', fieldId: 'LOB' },
+      { label: `Effective Date`, align: 'left', fieldId: 'EffectiveDates' },
+      { label: `Expiration Date`, align: 'left', fieldId: 'ExpirationDates' },
+      { label: `Age Limit`, align: 'left', fieldId: 'tbd' },
+      { label: `Parent Code`, align: 'left', fieldId: 'Parent Code' },
+      { label: `Area`, align: 'left', fieldId: 'Area' },
+      { label: `POrg`, align: 'left', fieldId: 'tbd' },
+      { label: `Practice Size Limit`, align: 'left', fieldId: 'tbd' },
+      { label: `Panel Code`, align: 'left', fieldId: 'PanelCode' },
+      {
+        label: `Primary Care Capitation Code`,
+        align: 'left',
+        fieldId: 'PrimaryCareCapitationCode'
+      },
+      { label: `Gender`, align: 'left', fieldId: 'Sex' },
+      { label: `Accept`, align: 'left', fieldId: 'Accept' },
+      { label: `Reason`, align: 'left', fieldId: 'Reason' }
+    ]
   };
 
   return (
     <>
-      <Grid container>
-        <Grid item sm={0.2}></Grid>
-        {/* <SelectBox options={data} onChange={onChange} disableUnderline={true} label="Company"></SelectBox> */}
-      </Grid>
-      <Grid container>
-        <TableStyleContaner component={Paper} style={{ border: 'none', boxShadow: 'none' }}>
-          <div ref={tableRef} style={{ height: '100%', marginTop: 15, overflow: 'auto' }}>
-            <Table sx={{ minWidth: 700 }} aria-label='customized table'>
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell align='center'>LOB</StyledTableCell>
-                  <StyledTableCell
-                    align='center'
-                    style={{ paddingLeft: '65px', paddingRight: '65px' }}
-                  >
-                    Effective&nbsp;Period
-                  </StyledTableCell>
-                  <StyledTableCell align='center'>Age&nbsp;Limit</StyledTableCell>
-                  <StyledTableCell align='center'>Parent&nbsp;Code</StyledTableCell>
-                  <StyledTableCell align='center'>Area</StyledTableCell>
-                  <StyledTableCell align='center'>POrg</StyledTableCell>
-                  <StyledTableCell
-                    align='center'
-                    style={{ paddingBottom: '0px', paddingTop: '24px' }}
-                  >
-                    Practice Size&nbsp;Limit
-                  </StyledTableCell>
-                  <StyledTableCell align='center'>Panel&nbsp;Code</StyledTableCell>
-                  <StyledTableCell
-                    align='center'
-                    style={{ paddingBottom: '0px', paddingTop: '24px' }}
-                  >
-                    Primary&nbsp;Care Capitation&nbsp;Code
-                  </StyledTableCell>
-                  <StyledTableCell align='center'>Gender</StyledTableCell>
-                  <StyledTableCell align='center'>Accept</StyledTableCell>
-                  <StyledTableCell align='center'>Reason</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {pr1033Data &&
-                  pr1033Data.length > 0 &&
-                  pr1033Data.map((data, index) => (
-                    <StyledTableRow key={index}>
-                      <StyledTableCell align='center' component='th'>
-                        {data?.LOB}
-                      </StyledTableCell>
-                      <StyledTableCell align='center'>{data?.EffectivePeriod}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.AgeLimit}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.ParentCode}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.Area}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.POrg}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.PracticeSizeLimit}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.PanelCode}</StyledTableCell>
-                      <StyledTableCell align='center'>
-                        {data?.PrimaryCareCapitationCode}
-                      </StyledTableCell>
-                      <StyledTableCell align='center'>{data?.Gender}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.Accept}</StyledTableCell>
-                      <StyledTableCell align='center'>{data?.Reason}</StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </div>
-        </TableStyleContaner>
-      </Grid>
+      <div style={{ width: '20%' }}>
+        <DropdownSelect
+          label={'Company'}
+          changeEvent={changeCompanyFilter}
+          data={dropdownData?.map(obj => {
+            return fullCompanyName(obj);
+          })}
+        />
+      </div>
+      <TableView
+        errorMsg={errorMsg}
+        isLoading={isLoading}
+        meta={meta}
+        resultsFetched={resultsFetched}
+        data={data}
+        tableWidth='130%'
+      />
     </>
   );
 };
+
 export default PR1033;

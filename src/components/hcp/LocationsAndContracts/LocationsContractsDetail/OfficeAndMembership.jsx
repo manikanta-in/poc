@@ -1,5 +1,5 @@
 import React, { forwardRef, useState, useEffect, useRef } from 'react';
-import { Wrapper } from '../LocationsAndContracts.style';
+import { OfficeHourStyle, Wrapper } from '../LocationsAndContracts.style';
 import ProviderInfoCard from './ProviderInfoCard.jsx';
 import Box from '@mui/material/Box';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -148,7 +148,9 @@ const LocationContractDetails = forwardRef((props, ref) => {
                   height: particpatingSpeciality?.ParticipatingSpecialties?.length > 2 ? 312 : '',
                   width: '90%',
                   margin: '0 0 0 10px',
-                  overflowY: 'auto'
+                  overflowY: 'auto',
+                  marginBottom:
+                    particpatingSpeciality?.ParticipatingSpecialties?.length > 2 ? '' : '10%'
                 }}
                 ref={ref}
               >
@@ -204,7 +206,8 @@ const LocationContractDetails = forwardRef((props, ref) => {
                   height: MembershipData?.MembershipDirectory?.length > 2 ? 312 : '',
                   width: '90%',
                   margin: '0 0 0 10px',
-                  overflowY: 'auto'
+                  overflowY: 'auto',
+                  tableLayout: 'fixed'
                 }}
                 ref={ref}
               >
@@ -237,7 +240,7 @@ const LocationContractDetails = forwardRef((props, ref) => {
                             ? membership?.ParticipatingPlanName
                             : '--'}
                         </TableRowsText>
-                        <TableRowsText style={{ marginLeft: '19px' }}>
+                        <TableRowsText>
                           {membership?.ReasonCode && membership?.ReasonCode != ''
                             ? 'Excluded'
                             : 'Included'}
@@ -296,7 +299,7 @@ const LocationContractDetails = forwardRef((props, ref) => {
                   ))}
               </TableWrapper>
               <ThemeProvider theme={theme}>
-                <PaginationStyle style={{ marginTop: '30px' }}>
+                <PaginationStyle>
                   <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
                       <Grid item xs={2}></Grid>
@@ -328,14 +331,16 @@ const LocationContractDetails = forwardRef((props, ref) => {
               <Grid item xs={12}>
                 <Box>
                   <div className='title'>Area of Expertise</div>
-                  <div className='line'></div>
+                  <div className='header-line'></div>
                 </Box>
               </Grid>
               <Grid item xs={12}>
                 <AreaOfExpertiseStyle>
                   {AreaOfExpertise && AreaOfExpertise[0]
                     ? AreaOfExpertise?.map((item, index) => (
-                        <Text style={{ fontWeight: 500 }}>{item?.mixedValue}</Text>
+                        <Text style={{ fontWeight: 500, color: '#333333', opacity: 1 }}>
+                          {item?.mixedValue}
+                        </Text>
                       ))
                     : '--'}
                 </AreaOfExpertiseStyle>
@@ -343,117 +348,118 @@ const LocationContractDetails = forwardRef((props, ref) => {
               <Grid item xs={12} marginTop={5}>
                 <Box>
                   <div className='title'>Office Hours</div>
-                  <div className='line'></div>
+                  <div className='header-line'></div>
                 </Box>
+                <OfficeHourStyle>
+                  <DateIconWrapper>
+                    <FaClock className='clock'></FaClock>
+                    <p className='days'>Monday</p>
+                  </DateIconWrapper>
+                  {officeHrs?.Monday != undefined && officeHrs?.Monday.length > 0 ? (
+                    officeHrs?.Monday?.map((time, index) =>
+                      time?.pyValue && time?.pyValue != '' ? (
+                        <TIME>{changeFormat(time.pyValue)}</TIME>
+                      ) : (
+                        <TIME>--</TIME>
+                      )
+                    )
+                  ) : (
+                    <TIME>--</TIME>
+                  )}
 
-                <DateIconWrapper>
-                  <FaClock className='clock'></FaClock>
-                  <p className='days'>Monday</p>
-                </DateIconWrapper>
-                {officeHrs?.Monday != undefined && officeHrs?.Monday.length > 0 ? (
-                  officeHrs?.Monday?.map((time, index) =>
-                    time?.pyValue && time?.pyValue != '' ? (
-                      <TIME>{changeFormat(time.pyValue)}</TIME>
-                    ) : (
-                      <TIME>--</TIME>
+                  <DateIconWrapper>
+                    <FaClock className='clock'></FaClock>
+                    <p className='days'>Tuesday</p>
+                  </DateIconWrapper>
+                  {officeHrs?.Tuesday != undefined && officeHrs?.Tuesday.length > 0 ? (
+                    officeHrs?.Tuesday?.map((time, index) =>
+                      time?.pyValue && time?.pyValue != '' ? (
+                        <TIME>{changeFormat(time.pyValue)}</TIME>
+                      ) : (
+                        <TIME>--</TIME>
+                      )
                     )
-                  )
-                ) : (
-                  <TIME>--</TIME>
-                )}
+                  ) : (
+                    <TIME>--</TIME>
+                  )}
 
-                <DateIconWrapper>
-                  <FaClock className='clock'></FaClock>
-                  <p className='days'>Tuesday</p>
-                </DateIconWrapper>
-                {officeHrs?.Tuesday != undefined && officeHrs?.Tuesday.length > 0 ? (
-                  officeHrs?.Tuesday?.map((time, index) =>
-                    time?.pyValue && time?.pyValue != '' ? (
-                      <TIME>{changeFormat(time.pyValue)}</TIME>
-                    ) : (
-                      <TIME>--</TIME>
+                  <DateIconWrapper>
+                    <FaClock className='clock'></FaClock>
+                    <p className='days'>Wednesday</p>
+                  </DateIconWrapper>
+                  {officeHrs?.Wednesday != undefined && officeHrs?.Wednesday.length > 0 ? (
+                    officeHrs?.Wednesday?.map((time, index) =>
+                      time?.pyValue && time?.pyValue != '' ? (
+                        <TIME>{changeFormat(time.pyValue)}</TIME>
+                      ) : (
+                        <TIME>--</TIME>
+                      )
                     )
-                  )
-                ) : (
-                  <TIME>--</TIME>
-                )}
+                  ) : (
+                    <TIME>--</TIME>
+                  )}
+                  <DateIconWrapper>
+                    <FaClock className='clock'></FaClock>
+                    <p className='days'>Thursday</p>
+                  </DateIconWrapper>
+                  {officeHrs?.Thursday != undefined && officeHrs?.Thursday.length > 0 ? (
+                    officeHrs?.Thursday?.map((time, index) =>
+                      time?.pyValue && time?.pyValue != '' ? (
+                        <TIME>{changeFormat(time.pyValue)}</TIME>
+                      ) : (
+                        <TIME>--</TIME>
+                      )
+                    )
+                  ) : (
+                    <TIME>--</TIME>
+                  )}
+                  <DateIconWrapper>
+                    <FaClock className='clock'></FaClock>
+                    <p className='days'>Friday</p>
+                  </DateIconWrapper>
+                  {officeHrs?.Friday != undefined && officeHrs?.Friday.length > 0 ? (
+                    officeHrs?.Friday?.map((time, index) =>
+                      time?.pyValue && time?.pyValue != '' ? (
+                        <TIME>{changeFormat(time.pyValue)}</TIME>
+                      ) : (
+                        <TIME>--</TIME>
+                      )
+                    )
+                  ) : (
+                    <TIME>--</TIME>
+                  )}
 
-                <DateIconWrapper>
-                  <FaClock className='clock'></FaClock>
-                  <p className='days'>Wednesday</p>
-                </DateIconWrapper>
-                {officeHrs?.Wednesday != undefined && officeHrs?.Wednesday.length > 0 ? (
-                  officeHrs?.Wednesday?.map((time, index) =>
-                    time?.pyValue && time?.pyValue != '' ? (
-                      <TIME>{changeFormat(time.pyValue)}</TIME>
-                    ) : (
-                      <TIME>--</TIME>
+                  <DateIconWrapper>
+                    <FaClock className='clock'></FaClock>
+                    <p className='days'>Saturday</p>
+                  </DateIconWrapper>
+                  {officeHrs?.Saturday != undefined && officeHrs?.Saturday.length > 0 ? (
+                    officeHrs?.Saturday?.map((time, index) =>
+                      time?.pyValue && time?.pyValue != '' ? (
+                        <TIME>{changeFormat(time.pyValue)}</TIME>
+                      ) : (
+                        <TIME>--</TIME>
+                      )
                     )
-                  )
-                ) : (
-                  <TIME>--</TIME>
-                )}
-                <DateIconWrapper>
-                  <FaClock className='clock'></FaClock>
-                  <p className='days'>Thursday</p>
-                </DateIconWrapper>
-                {officeHrs?.Thursday != undefined && officeHrs?.Thursday.length > 0 ? (
-                  officeHrs?.Thursday?.map((time, index) =>
-                    time?.pyValue && time?.pyValue != '' ? (
-                      <TIME>{changeFormat(time.pyValue)}</TIME>
-                    ) : (
-                      <TIME>--</TIME>
+                  ) : (
+                    <TIME>--</TIME>
+                  )}
+                  <DateIconWrapper>
+                    <FaClock className='clock'></FaClock>
+                    <p className='days'>Sunday</p>
+                  </DateIconWrapper>
+                  {officeHrs?.Sunday != undefined && officeHrs?.Sunday.length > 0 ? (
+                    officeHrs?.Sunday?.map((time, index) =>
+                      time?.pyValue && time?.pyValue != '' ? (
+                        <TIME>{changeFormat(time.pyValue)}</TIME>
+                      ) : (
+                        <TIME>--</TIME>
+                      )
                     )
-                  )
-                ) : (
-                  <TIME>--</TIME>
-                )}
-                <DateIconWrapper>
-                  <FaClock className='clock'></FaClock>
-                  <p className='days'>Friday</p>
-                </DateIconWrapper>
-                {officeHrs?.Friday != undefined && officeHrs?.Friday.length > 0 ? (
-                  officeHrs?.Friday?.map((time, index) =>
-                    time?.pyValue && time?.pyValue != '' ? (
-                      <TIME>{changeFormat(time.pyValue)}</TIME>
-                    ) : (
-                      <TIME>--</TIME>
-                    )
-                  )
-                ) : (
-                  <TIME>--</TIME>
-                )}
-
-                <DateIconWrapper>
-                  <FaClock className='clock'></FaClock>
-                  <p className='days'>Saturday</p>
-                </DateIconWrapper>
-                {officeHrs?.Saturday != undefined && officeHrs?.Saturday.length > 0 ? (
-                  officeHrs?.Saturday?.map((time, index) =>
-                    time?.pyValue && time?.pyValue != '' ? (
-                      <TIME>{changeFormat(time.pyValue)}</TIME>
-                    ) : (
-                      <TIME>--</TIME>
-                    )
-                  )
-                ) : (
-                  <TIME>--</TIME>
-                )}
-                <DateIconWrapper>
-                  <FaClock className='clock'></FaClock>
-                  <p className='days'>Sunday</p>
-                </DateIconWrapper>
-                {officeHrs?.Sunday != undefined && officeHrs?.Sunday.length > 0 ? (
-                  officeHrs?.Sunday?.map((time, index) =>
-                    time?.pyValue && time?.pyValue != '' ? (
-                      <TIME>{changeFormat(time.pyValue)}</TIME>
-                    ) : (
-                      <TIME>--</TIME>
-                    )
-                  )
-                ) : (
-                  <TIME>--</TIME>
-                )}
+                  ) : (
+                    <TIME>--</TIME>
+                  )}
+                </OfficeHourStyle>
               </Grid>
             </Grid>
           </Grid>

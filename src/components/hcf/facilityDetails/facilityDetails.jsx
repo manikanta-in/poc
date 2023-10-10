@@ -165,13 +165,10 @@ const FacilityDetails = props => {
                         </Grid>
 
                         <Grid item xs={3} style={{ marginBottom: '3px' }}>
-                          <div
-                            className='label'
-                            style={{ marginBottom: '-2px', fontSize: '0.95rem' }}
-                          >
+                          <div className='label' style={{ marginBottom: '-2px', fontSize: '1rem' }}>
                             Effective&nbsp;from
                           </div>
-                          <div className='value' style={{ fontSize: '1.1rem' }}>
+                          <div className='value' style={{ fontSize: '1rem' }}>
                             {facilityData?.FacilityDetails?.EffectiveFrom
                               ? changeDateFormate(facilityData?.FacilityDetails?.EffectiveFrom)
                               : '--'}
@@ -227,6 +224,7 @@ const FacilityDetails = props => {
                                           facilityData?.FacilityDetails?.OpCert?.length >= 3)
                                       }
                                       style={{
+                                        fontSize: '1rem',
                                         height:
                                           (item.name === 'Legacy Provider ID' &&
                                             facilityData?.FacilityDetails?.LegacyProviderID
@@ -275,11 +273,7 @@ const FacilityDetails = props => {
                                             ]?.map((providers, index1) => (
                                               <p>
                                                 {providers}
-                                                {facilityData?.FacilityDetails?.[tableValues[index]]
-                                                  ?.length ===
-                                                index1 + 1
-                                                  ? ''
-                                                  : ','}
+                                                <br />
                                               </p>
                                             ))
                                         : facilityData?.FacilityDetails?.[tableValues[index]]

@@ -5,13 +5,16 @@ const StyledForm = styled.div(() => {
     margin: 8px 0;
     background: white;
     padding: 20px;
+    & div {
+      height: fit-content;
+    }
     & label {
       position: relative;
-      top: 11px;
-      background: #fff;
-      opacity: 1;
+      top: 10px;
+      //background: #fff;
+      opacity: 0.7;
       z-index: 41;
-      left: 14px;
+      //left: 14px;
       padding: 0 8px;
       height: 39px;
       display: flex;

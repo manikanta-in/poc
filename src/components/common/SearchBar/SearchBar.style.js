@@ -42,7 +42,7 @@ export const MoreIcon = styled.div`
   color: #fff;
   border-radius: 30px;
   width: 75px;
-  height: 50px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,6 +67,7 @@ export const SearchArea = styled.div`
     width: 80%;
     position: relative;
     display: flex;
+    align-items: center;
     //bottom: -100px;
   }
 `;

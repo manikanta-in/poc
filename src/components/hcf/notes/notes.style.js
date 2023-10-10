@@ -15,7 +15,7 @@ export const TitleText = styled.span`
   display: flex;
   font-size: 1em;
   color: #707070;
-  font-family: 'Open Sans';
+  font-family: 'Museo Sans', 'Open Sans';
   font-weight: 300;
 `;
 
@@ -28,7 +28,7 @@ export const TextAreaInput = styled.textarea`
   opacity: 1;
   font-size: 1.125em;
   font-weight: 500;
-  font-family: 'Open Sans';
+  font-family: 'Museo Sans', 'Open Sans';
   padding: 20px 20px;
   resize: none;
 `;

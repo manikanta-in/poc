@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
+  height: auto;
   width: 100%;
   // 100%
   // @media screen and (min-width: 1280px) and (max-width: 1360px) {

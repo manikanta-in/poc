@@ -156,11 +156,11 @@ const ProfessionalSearchList = props => {
   const meta = {
     columns: [
       { label: `Professional ID`, align: 'left', fieldId: 'ProfessionalID' },
-      { label: `Name`, align: 'center', fieldId: 'Name' },
-      { label: `Status`, align: 'center', fieldId: 'NetworkStatus' },
-      { label: `Phone #`, align: 'center', fieldId: 'Phone' },
-      { label: `Medicare #`, align: 'center', fieldId: 'Medicare' },
-      { label: `NPI`, align: 'center', fieldId: 'NPI' }
+      { label: `Name`, align: 'left', fieldId: 'Name' },
+      { label: `Status`, align: 'left', fieldId: 'NetworkStatus' },
+      { label: `Phone #`, align: 'left', fieldId: 'Phone' },
+      { label: `Medicare #`, align: 'left', fieldId: 'Medicare' },
+      { label: `NPI`, align: 'left', fieldId: 'NPI' }
     ]
   };
 

@@ -169,7 +169,7 @@ const NotesTabContent = props => {
         </Model> */}
 
         <TableStyleContaner component={Paper} style={{ border: 'none', boxShadow: 'none' }}>
-          <div ref={tableRef} style={{ height: '410px', overflow: 'auto', marginTop: 15 }}>
+          <div ref={tableRef} style={{ height: '65vh', overflow: 'auto', marginTop: 15 }}>
             <Table sx={{ minWidth: 700 }} aria-label='customized table' stickyHeader>
               <TableHead>
                 <TableRow>
@@ -210,9 +210,7 @@ const NotesTabContent = props => {
                       </StyledTableCell>
                       <StyledTableCell align='left'>
                         <div>{row.CreatedDate ? changeDateFormate(row.CreatedDate) : '--'}</div>
-                        <div style={{ paddingLeft: '10px' }}>
-                          {row?.CreatedTime ? changeFormat(row?.CreatedTime) : ''}
-                        </div>
+                        <div>{row?.CreatedTime ? changeFormat(row?.CreatedTime) : ''}</div>
                       </StyledTableCell>
 
                       <StyledTableCell align='left'>
@@ -220,9 +218,7 @@ const NotesTabContent = props => {
                       </StyledTableCell>
                       <StyledTableCell align='left'>
                         <div>{row.UpdatedDate ? changeDateFormate(row.UpdatedDate) : '--'}</div>
-                        <div style={{ paddingLeft: '10px' }}>
-                          {row?.UpdatedTime ? changeFormat(row?.UpdatedTime) : ''}
-                        </div>
+                        <div>{row?.UpdatedTime ? changeFormat(row?.UpdatedTime) : ''}</div>
                       </StyledTableCell>
                       <StyledTableCell align='left'>
                         {row.UpdatedBy ? row.UpdatedBy : '--'}
@@ -238,7 +234,7 @@ const NotesTabContent = props => {
         </TableStyleContaner>
 
         {notesData && notesData?.Notes?.length > 0 && (
-          <PaginationStyle style={{ marginTop: '26px' }}>
+          <PaginationStyle>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 <Grid item xs={4}>

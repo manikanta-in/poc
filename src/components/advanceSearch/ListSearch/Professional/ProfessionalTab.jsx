@@ -21,6 +21,7 @@ export default function ProfessionalTab(props) {
   const [submitDisable, setsubmitDisable] = useState(true);
   const [fieldsRequired, setFieldsRequired] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [triggerRender, setTriggerRender] = useState(false);
 
   const backButtonText = '< Back to Search Screen';
   const parameters = {
@@ -51,7 +52,12 @@ export default function ProfessionalTab(props) {
     LastName: '',
     Street: '',
     City: '',
-    County: ''
+    County: '',
+    HCPID: '',
+    TaxId: '',
+    NPI: '',
+    Zip: '',
+    Phone: ''
   });
 
   const [formData, setFormData] = useState({
@@ -80,23 +86,6 @@ export default function ProfessionalTab(props) {
     CheckSubmitEnabled();
   }, [formData]);
 
-  const checkString = event => {
-    let valueLength = event.target.value.length === 0 ? true : false;
-    if (valueLength) {
-      emptyErrMsg(event.target.name);
-      return false;
-    } else {
-      if (!event.target.value.match(/^[a-zA-Z]+$/)) {
-        errors[`${event.target.name}`] = 'Please enter only letters';
-        setErrors(errors);
-        return true;
-      } else {
-        emptyErrMsg(event.target.name);
-        return false;
-      }
-    }
-  };
-
   const emptyErrMsg = name => {
     errors[`${name}`] = '';
     setErrors(errors);
@@ -104,6 +93,88 @@ export default function ProfessionalTab(props) {
 
   const handleValidation = event => {
     let formIsValid = true;
+
+    if (event.target.name === 'TaxId') {
+      if (!event.target.value.match(/^[0-9]{9}$/) && event.target.value?.length !== 0) {
+        errors[`${event.target.name}`] = 'Enter valid 9 digit TAX ID';
+        setErrors(errors);
+        setTriggerRender(!triggerRender);
+
+        return true;
+      } else {
+        emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
+        return false;
+      }
+    } else if (event.target.name === 'NPI') {
+      //var regExp = new RegExp('^\\d+$');
+      //if (!regExp.test(event.target.value)
+      if (!event.target.value.match(/^[0-9]{10}$/) && event.target.value?.length !== 0) {
+        if (event.target.name === 'NPI') {
+          errors[`${event.target.name}`] = 'Enter valid 10 digit NPI ID';
+          setErrors(errors);
+          setTriggerRender(!triggerRender);
+
+          return true;
+        }
+      } else {
+        emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
+        return false;
+      }
+    } else if (event.target.name === 'Phone') {
+      if (!event.target.value.match(/^\d{3}-\d{3}-\d{4}$/) && event.target.value?.length !== 0) {
+        errors[`${event.target.name}`] =
+          'Please enter a valid phone number in the format xxx-xxx-xxxx';
+        setErrors(errors);
+        setTriggerRender(!triggerRender);
+
+        return true;
+      } else {
+        emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+      }
+    } else if (event.target.name === 'Zip') {
+      if (checkZip(event.target.value) || event.target.value?.length === 0) {
+        emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
+        return false;
+      } else {
+        errors[`${event.target.name}`] = 'Enter valid 5 digit Zip code';
+        setErrors(errors);
+        setTriggerRender(!triggerRender);
+
+        return true;
+      }
+    } else if (event.target.name === 'HCPID') {
+      var regExp = /^P-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/;
+      if (regExp.test(event.target.value) || event.target.value?.length === 0) {
+        emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+
+        return false;
+      } else {
+        errors[`${event.target.name}`] = 'Enter a valid HCP ID';
+        setErrors(errors);
+        setTriggerRender(!triggerRender);
+
+        return true;
+      }
+    } else if (event.target.name === 'FirstName' || event.target.name === 'LastName') {
+      if (!event.target.value.match(/^[a-zA-Z]+$/) && event.target.value?.length !== 0) {
+        errors[`${event.target.name}`] = 'Name can contain only alphabets and characters ';
+        setErrors(errors);
+        setTriggerRender(!triggerRender);
+        return true;
+      } else {
+        emptyErrMsg(event.target.name);
+        setTriggerRender(!triggerRender);
+        return false;
+      }
+    }
 
     // if (event.target.name === 'FirstName') {
     //   if (checkString(event)) formIsValid = false;
@@ -119,8 +190,12 @@ export default function ProfessionalTab(props) {
     return formIsValid;
   };
 
+  function checkZip(value) {
+    return /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(value);
+  }
+
   const handleChange = e => {
-    handleValidation(e);
+    //handleValidation(e);
 
     const { name, value } = e.target;
     setFormData(allValues => {
@@ -147,25 +222,68 @@ export default function ProfessionalTab(props) {
     const stateVal = formData;
 
     if (
-      stateVal['TaxId'].length > 0 ||
-      stateVal['HCPID'].length > 0 ||
+      //stateVal['TaxId'].length > 0 ||
+      //stateVal['HCPID'].length > 0 ||
       stateVal['Vendor'].length > 0 ||
-      stateVal['NPI'].length > 0 ||
+      // stateVal['NPI'].length > 0 ||
       stateVal['License'].length > 0 ||
       stateVal['Medicare'].length > 0 ||
       stateVal['LegacyProviderID'].length > 0 ||
       stateVal['Medicaid'].length > 0 ||
-      stateVal['FirstName'].length > 0 ||
-      stateVal['LastName'].length > 0 ||
+      //stateVal['FirstName'].length > 0 ||
+      //stateVal['LastName'].length > 0 ||
       stateVal['Specialty'].length > 0 ||
       stateVal['Street'].length > 0 ||
-      stateVal['Phone'].length > 0 ||
+      //stateVal['Phone'].length > 0 ||
       stateVal['City'].length > 0 ||
       stateVal['State'].length > 0 ||
-      stateVal['Zip'].length > 0 ||
+      //stateVal['Zip'].length > 0 ||
       stateVal['County'].length > 0
     ) {
       setsubmitDisable(false);
+    } else if (stateVal['HCPID'].length > 0) {
+      var regExp = /^P-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$/;
+      if (regExp.test(stateVal['HCPID'])) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['Zip'].length > 0) {
+      if (checkZip(stateVal['Zip'])) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['TaxId'].length > 0) {
+      if (stateVal['TaxId'].match(/^[0-9]{9}$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['Phone'].length > 0) {
+      if (stateVal['Phone'].match(/^\d{3}-\d{3}-\d{4}$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['NPI'].length > 0) {
+      if (stateVal['NPI'].match(/^[0-9]{10}$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['FirstName'].length > 0) {
+      if (stateVal['FirstName'].match(/^[a-zA-Z]+$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
+    } else if (stateVal['LastName'].length > 0) {
+      if (stateVal['LastName'].match(/^[a-zA-Z]+$/)) {
+        setsubmitDisable(false);
+      } else {
+        setsubmitDisable(true);
+      }
     } else {
       setsubmitDisable(true);
     }
@@ -297,6 +415,18 @@ export default function ProfessionalTab(props) {
   const handleClear = () => {
     setShowError(false);
     setsubmitDisable(true);
+    setErrors({
+      FirstName: '',
+      LastName: '',
+      Street: '',
+      City: '',
+      County: '',
+      HCPID: '',
+      TaxId: '',
+      NPI: '',
+      Zip: '',
+      Phone: ''
+    });
     setFormData({
       FirstName: '',
       LastName: '',
@@ -396,9 +526,10 @@ export default function ProfessionalTab(props) {
             name='FirstName'
             label='First Name'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.FirstName}
-            //status={errors?.FirstName ? 'error' : 'pending'}
+            info={errors?.FirstName}
+            status={errors?.FirstName ? 'error' : 'pending'}
             value={formData.FirstName}
           />
 
@@ -406,17 +537,21 @@ export default function ProfessionalTab(props) {
             name='LastName'
             label='Last Name'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.LastName}
-            //status={errors?.LastName ? 'error' : 'pending'}
+            info={errors?.LastName}
+            status={errors?.LastName ? 'error' : 'pending'}
             value={formData.LastName}
           />
           <Input
             name='HCPID'
             label='HCP ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.HCPID}
+            info={errors?.HCPID}
+            status={errors?.HCPID ? 'error' : 'pending'}
           />
           <Select label='Title' name='Title' disabled={true}>
             <Option></Option>
@@ -425,13 +560,18 @@ export default function ProfessionalTab(props) {
             name='TaxId'
             label='Tax ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.TaxId}
+            maxLength='9'
+            info={errors?.TaxId}
+            status={errors?.TaxId ? 'error' : 'pending'}
           />
           <Input
             name='LegacyProviderID'
             label='Legacy Provider ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.LegacyProviderID}
           />
@@ -439,13 +579,18 @@ export default function ProfessionalTab(props) {
             name='NPI'
             label='NPI ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.NPI}
+            maxLength='10'
+            info={errors?.NPI}
+            status={errors?.NPI ? 'error' : 'pending'}
           />
           <Input
             name='Vendor'
             label='Legacy Vendor ID'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.Vendor}
             disabled={true}
@@ -472,6 +617,7 @@ export default function ProfessionalTab(props) {
             name='Medicaid'
             label='Medicaid'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.Medicaid}
           />
@@ -479,6 +625,7 @@ export default function ProfessionalTab(props) {
             name='Medicare'
             label='Medicare'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.Medicare}
           />
@@ -496,16 +643,21 @@ export default function ProfessionalTab(props) {
             name='Phone'
             label='Phone #'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.Phone}
+            maxLength='12'
+            info={errors?.Phone}
+            status={errors?.Phone ? 'error' : 'pending'}
           />
           <Input
             name='Street'
             label='Street'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.Street}
-            //status={errors?.Street ? 'error' : 'pending'}
+            info={errors?.Street}
+            status={errors?.Street ? 'error' : 'pending'}
             value={formData.Street}
             disabled={true}
           />
@@ -513,9 +665,10 @@ export default function ProfessionalTab(props) {
             name='City'
             label='City'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.City}
-            //status={errors?.City ? 'error' : 'pending'}
+            info={errors?.City}
+            status={errors?.City ? 'error' : 'pending'}
             value={formData.City}
             disabled={true}
           />
@@ -523,26 +676,34 @@ export default function ProfessionalTab(props) {
             label='State'
             name='State'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.State}
             disabled={true}
+            info={errors?.State}
+            status={errors?.State ? 'error' : 'pending'}
           />
 
           <Input
             name='Zip'
             label='Zip Code'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
             value={formData.Zip}
             disabled={true}
+            maxLength='5'
+            info={errors?.Zip}
+            status={errors?.Zip ? 'error' : 'pending'}
           />
           <Input
             name='County'
             label='County'
             onChange={handleChange}
+            onBlur={handleValidation}
             autoComplete='off'
-            //info={errors?.County}
-            //status={errors?.County ? 'error' : 'pending'}
+            info={errors?.County}
+            status={errors?.County ? 'error' : 'pending'}
             value={formData.County}
             disabled={true}
           />
